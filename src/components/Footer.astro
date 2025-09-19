@@ -1,0 +1,40 @@
+---
+const currentYear = new Date().getFullYear();
+---
+<footer>
+    <div class="footer-content">
+        <p>&copy; {currentYear} Daniel Castleberry. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://github.com/TheTrueSergeant1" target="_blank" title="GitHub">GitHub</a>
+            <a href="#" target="_blank" title="LinkedIn">LinkedIn</a> </div>
+    </div>
+</footer>
+<style>
+    footer {
+        border-top: 1px solid var(--border-color);
+        margin-top: 4rem;
+        padding: 2rem 0;
+        font-size: 0.9rem;
+        color: #888;
+    }
+    .footer-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .social-links {
+        display: flex;
+        gap: 1rem;
+    }
+    .social-links a {
+        color: #888;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+    .social-links a:hover {
+        color: var(--accent-color);
+    }
+</style>

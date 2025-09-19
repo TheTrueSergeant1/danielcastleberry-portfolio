@@ -1,0 +1,32 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+<MainLayout title="Certifications | Daniel Castleberry" description="A list of my cybersecurity certifications.">
+    <h1>Certifications</h1>
+    <p>A log of my completed certifications and my roadmap for future learning.</p>
+
+    <h2>In Progress</h2>
+    <div class="cert-card">
+        <h3>CompTIA Security+</h3>
+        <p><strong>Expected Completion:</strong> December 2025</p>
+        <p>Focuses on core cybersecurity skills and is the foundational cert for an IT security career.</p>
+    </div>
+
+    <h2>Achieved</h2>
+    <div class="cert-card">
+        <h3>(Example) Cisco Certified Network Associate (CCNA)</h3>
+        <p><strong>Completed:</strong> August 2024</p>
+        <p>Validates my knowledge of fundamental networking concepts, which are critical for cybersecurity.</p>
+    </div>
+</MainLayout>
+<style>
+    .cert-card {
+        background: var(--glass-bg);
+        border: 1px solid var(--border-color);
+        padding: 1.5rem;
+        border-radius: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    h2 { margin-top: 2rem; color: var(--accent-color); }
+    h3 { margin-top: 0; }
+</style>
