@@ -23,23 +23,12 @@ const { title, description } = Astro.props;
         <title>{title}</title>
 
         <ViewTransitions />
-
-        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     </head>
     <body>
         <Header />
         <main>
             <slot /> </main>
         <Footer />
-
-        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-        <script is:inline>
-            AOS.init({
-                once: true, // Only animate elements once
-                duration: 600, // Animation duration
-                easing: 'ease-out-quad', // Animation easing
-            });
-        </script>
     </body>
 </html>
 
@@ -79,3 +68,14 @@ const { title, description } = Astro.props;
     line-height: 1.2;
   }
 </style>
+
+<script>
+    import AOS from 'aos';
+    import 'aos/dist/aos.css'; // This line imports the CSS for the library
+
+    AOS.init({
+        once: true,
+        duration: 600,
+        easing: 'ease-out-quad',
+    });
+</script>

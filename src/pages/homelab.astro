@@ -4,48 +4,82 @@ import MainLayout from '../layouts/MainLayout.astro';
 <MainLayout title="My Homelab | Daniel Castleberry" description="An overview of my personal cybersecurity homelab for research and practice.">
     <h1>My Cybersecurity Homelab</h1>
     <p class="intro">
-        This is the virtual environment where I practice defensive and offensive security techniques, test new tools, and simulate real-world network scenarios.
+        This is a multi-segmented environment designed for practical cybersecurity training. It allows me to host services, conduct malware analysis, and practice network defense techniques in a safely isolated setup.
     </p>
 
-    <div class="diagram-placeholder">
-        [ Network Diagram Coming Soon ]
+    <div class="diagram-container" data-aos="fade-up">
+        <img src="/homelab-diagram.png" alt="A network diagram of the homelab setup">
     </div>
 
-    <div class="lab-section">
-        <h2>Purpose</h2>
-        <p>The primary goal of my lab is to gain hands-on experience with enterprise-grade security concepts, including network monitoring, penetration testing, and incident response in a safe, isolated environment.</p>
-    </div>
-
-    <div class="lab-section">
-        <h2>Hardware & Virtualization</h2>
+    <div class="lab-section" data-aos="fade-up">
+        <h2>Network Infrastructure</h2>
         <ul>
-            <li><strong>Host Machine:</strong> Dell OptiPlex with an Intel i7 and 32GB RAM.</li>
-            <li><strong>Virtualization:</strong> Proxmox VE 8.0</li>
+            <li><strong>Managed Switch:</strong> Forms the core of the lab, enabling traffic segmentation through Virtual LANs (VLANs).</li>
+            <li><strong>Raspberry Pi 5 (DNS Sinkhole):</strong> Runs Pi-hole to provide network-wide ad and tracker blocking. All DNS queries are routed through this device to filter malicious domains before they can be accessed.</li>
         </ul>
     </div>
 
-    <div class="lab-section">
-        <h2>Virtual Machines</h2>
+    <div class="lab-section" data-aos="fade-up">
+        <h2>Production & Services Network</h2>
+        <p>This segment hosts my always-on services and is connected directly to the primary router for external access when needed.</p>
         <ul>
-            <li><strong>Firewall:</strong> pfSense - Manages network segmentation and traffic rules.</li>
-            <li><strong>Attacker VM:</strong> Kali Linux - Used for penetration testing tools.</li>
-            <li><strong>Monitoring:</strong> Security Onion - A full SIEM for intrusion detection and log analysis.</li>
-            <li><strong>Targets:</strong> A mix of vulnerable machines like Metasploitable2 and Windows 10 VMs for practice.</li>
+            <li><strong>Utility Server (PC):</strong> Functions as a multi-purpose server hosting a web server, a private Minecraft server, and a Network Attached Storage (NAS) for file sharing and backups.</li>
         </ul>
     </div>
+    
+    <div class="lab-section" data-aos="fade-up">
+        <h2>Analysis & Research VLAN</h2>
+        <p>My primary workstation is isolated on its own VLAN to protect it from other network segments and provide a controlled environment for coursework and sandboxed testing.</p>
+        <ul>
+            <li><strong>Primary Workstation (PC):</strong> My main machine for lab work and university coursework.</li>
+            <li><strong>Virtualization:</strong> VMWare Workstation 17 is used to run a variety of virtual machines for safe experimentation.</li>
+            <li><strong>Guest VMs:</strong> Kali Linux (for offensive security tools), Ubuntu (for general-purpose testing), and a sandboxed Windows XP instance (for observing malware behavior in a legacy environment).</li>
+        </ul>
+    </div>
+
+    <div class="lab-section" data-aos="fade-up">
+        <h2>Air-Gapped Malware Detonation Environment</h2>
+        <p>For analyzing high-risk malware, I use a physically separate, air-gapped machine with no network connectivity to ensure complete containment.</p>
+        <ul>
+            <li><strong>Hardware:</strong> A dedicated Lenovo laptop.</li>
+            <li><strong>Operating System:</strong> Runs Windows XP natively to analyze malware targeting older systems. The entire device is wiped and reimaged after each analysis session to ensure a clean state.</li>
+        </ul>
+    </div>
+
 </MainLayout>
+
 <style>
-    .intro { font-size: 1.1rem; max-width: 60ch; }
-    .diagram-placeholder {
-        border: 2px dashed var(--border-color);
-        border-radius: 1rem;
-        padding: 4rem;
-        text-align: center;
-        margin: 2rem 0;
-        color: #888;
+    .intro { 
+        font-size: 1.1rem; 
+        max-width: 60ch; 
     }
-    .lab-section { margin-bottom: 2rem; }
-    h2 { color: var(--accent-color); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
-    ul { list-style-type: square; padding-left: 1.5rem; }
-    li { margin-bottom: 0.5rem; }
+    .diagram-container {
+        margin: 2rem 0;
+        text-align: center;
+    }
+    .diagram-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 1rem;
+        background: rgba(40, 48, 61, 0.5);
+        border: 1px solid var(--border-color);
+    }
+    .lab-section { 
+        margin-bottom: 2.5rem; 
+    }
+    h2 { 
+        color: var(--accent-color); 
+        border-bottom: 1px solid var(--border-color); 
+        padding-bottom: 0.5rem; 
+    }
+    p { 
+        line-height: 1.6; 
+    }
+    ul { 
+        list-style-type: square; 
+        padding-left: 1.5rem; 
+    }
+    li { 
+        margin-bottom: 0.75rem; 
+    }
 </style>
