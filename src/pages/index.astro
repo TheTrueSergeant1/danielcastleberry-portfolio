@@ -1,0 +1,60 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+<MainLayout 
+    title="Daniel Castleberry | Cybersecurity Portfolio" 
+    description="The professional portfolio for Daniel Castleberry, a cybersecurity student specializing in security operations and digital forensics."
+>
+    <div class="hero-container">
+        <h1 class="hero-title">Daniel Castleberry</h1>
+        <p class="hero-tagline">
+            A proactive and dedicated Junior Cybersecurity student with hands-on internship experience in security operations. Eager to apply technical skills and a diligent work ethic to a challenging entry-level cybersecurity position.
+        </p>
+        <div class="cta-buttons">
+            <a href="/resume.pdf" class="cta-primary">View Resume</a>
+            <a href="/contact" class="cta-secondary">Get In Touch</a>
+        </div>
+    </div>
+</MainLayout>
+
+<style>
+  .hero-container {
+    text-align: center;
+    padding: 4rem 1rem;
+  }
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+  .hero-tagline {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+  }
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  a.cta-primary, a.cta-secondary {
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem; /* This creates the squircle effect */
+    font-weight: 600;
+    transition: transform 0.2s ease-out, background-color 0.2s ease;
+  }
+  a.cta-primary {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+  }
+  a.cta-secondary {
+    background-color: transparent;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+  }
+  a.cta-primary:hover, a.cta-secondary:hover {
+    transform: translateY(-3px);
+  }
+</style>

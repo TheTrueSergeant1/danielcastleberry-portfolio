@@ -1,0 +1,57 @@
+---
+// This is the "frontmatter" script section, where we can write JavaScript.
+import Header from '../components/Header.astro';
+import { ViewTransitions } from 'astro:transitions';
+export interface Props {
+    title: string;
+    description: string;
+}
+
+const { title, description } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content={description} />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body>
+        <main>
+            <slot /> </main>
+        </body>
+</html>
+
+<style is:global>
+  /* Global styles for our dark, frosted-glass theme */
+  :root {
+    --bg-color: #0d1117; /* A dark navy, like GitHub's dark mode */
+    --text-color: #c9d1d9;
+    --accent-color: #58a6ff; /* A bright blue for links and highlights */
+    --border-color: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(26, 31, 40, 0.75);
+  }
+
+  html {
+    font-family: system-ui, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+
+  body {
+    margin: 0;
+    padding: 8rem 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  main {
+    max-width: 800px;
+    margin: auto;
+    width: 100%;
+  }
+</style>

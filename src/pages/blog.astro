@@ -1,0 +1,39 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+// This command finds all your markdown posts in the /src/pages/posts/ directory.
+const allPosts = await Astro.glob('./posts/*.md');
+---
+<MainLayout title="Blog | Daniel Castleberry" description="CTF write-ups and security research.">
+    <h1>Blog & Write-ups</h1>
+    <p>Documenting my journey through Capture The Flag challenges, security tool explorations, and research into cybersecurity concepts.</p>
+
+    <div class="post-list">
+        {allPosts.map((post) => (
+            <a href={post.url} class="post-card">
+                <h2>{post.frontmatter.title}</h2>
+                <p>{post.frontmatter.description}</p>
+                <time>{post.frontmatter.pubDate}</time>
+            </a>
+        ))}
+    </div>
+</MainLayout>
+<style>
+  .post-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .post-card {
+    display: block;
+    text-decoration: none;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: 2rem;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+  .post-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-color);
+  }
+  h2 { margin: 0 0 0.5rem 0; color: var(--accent-color); }
+  p { margin: 0 0 1rem 0; color: var(--text-color); }
+  time { font-size: 0.9rem; color: #aab2bb; }
+</style>

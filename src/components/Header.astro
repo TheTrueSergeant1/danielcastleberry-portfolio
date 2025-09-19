@@ -1,0 +1,56 @@
+---
+---
+<header>
+    <nav>
+        <a href="/" class="logo">DC</a>
+        <ul>
+            <li><a href="/skills">Skills</a></li>
+            <li><a href="/experience">Experience</a></li>
+            <li><a href="/blog">Blog</a></li>
+        </ul>
+    </nav>
+</header>
+
+<style>
+  header {
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 4rem);
+    max-width: 800px;
+    z-index: 10;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 2rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 2rem;
+  }
+  .logo {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    text-decoration: none;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1.5rem;
+  }
+  a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  a:hover {
+    color: var(--accent-color);
+  }
+</style>

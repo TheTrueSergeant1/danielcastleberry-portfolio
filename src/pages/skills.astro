@@ -1,0 +1,65 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+<MainLayout title="Skills | Daniel Castleberry" description="A list of technical skills and competencies.">
+    <h1>Technical Skills</h1>
+    <div class="skills-grid">
+        <div class="skill-card">
+            <h2>Operating Systems</h2>
+            <ul>
+                [cite_start]<li>Linux [cite: 17]</li>
+                [cite_start]<li>Windows [cite: 17]</li>
+                [cite_start]<li>Virtual Machines [cite: 17]</li>
+            </ul>
+        </div>
+        <div class="skill-card">
+            <h2>Security Tools</h2>
+            <ul>
+                [cite_start]<li>Insight IDR (Rapid7) [cite: 23]</li>
+                [cite_start]<li>ServiceNow [cite: 23]</li>
+                [cite_start]<li>ZScaler [cite: 23]</li>
+                [cite_start]<li>Trend Micro Suite [cite: 23]</li>
+                [cite_start]<li>Mimecast [cite: 23]</li>
+            </ul>
+        </div>
+        <div class="skill-card">
+            <h2>Security Concepts</h2>
+            <ul>
+                [cite_start]<li>Threat Detection [cite: 22]</li>
+                [cite_start]<li>Digital Forensics [cite: 22]</li>
+                [cite_start]<li>Cryptography [cite: 22]</li>
+                [cite_start]<li>Networking (CCNA Knowledge) [cite: 22]</li>
+            </ul>
+        </div>
+        <div class="skill-card">
+            <h2>Programming & Web</h2>
+            <ul>
+                [cite_start]<li>C++ [cite: 19]</li>
+                [cite_start]<li>Java [cite: 19]</li>
+                [cite_start]<li>HTML, CSS, JavaScript (basic) [cite: 24]</li>
+            </ul>
+        </div>
+    </div>
+</MainLayout>
+<style>
+  /* Styles for frosted glass squircle cards */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: 2rem; /* Squircle effect */
+    transition: transform 0.3s ease;
+  }
+  .skill-card:hover {
+    transform: scale(1.05);
+  }
+  h2 { margin-top: 0; color: var(--accent-color); }
+  ul { padding-left: 1.2rem; }
+  li { margin-bottom: 0.5rem; }
+</style>

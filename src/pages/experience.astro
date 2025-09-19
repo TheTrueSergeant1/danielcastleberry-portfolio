@@ -1,0 +1,41 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+<MainLayout title="Experience | Daniel Castleberry" description="Professional and internship experience.">
+    <h1>Professional Experience</h1>
+
+    <div class="job-entry">
+        <h2>Cybersecurity Intern</h2>
+        <h3>US Silica | [cite_start]The Woodlands, TX (Summer 2023) [cite: 34, 35, 36, 37]</h3>
+        <ul>
+            [cite_start]<li>Modernized phishing awareness training materials, directly enhancing employee understanding of critical cyber safety concepts. [cite: 38]</li>
+            [cite_start]<li>Gained direct, hands-on experience with enterprise-grade security software including InsightIDR, ServiceNow, and Mimecast. [cite: 39]</li>
+            [cite_start]<li>Shadowed the Senior Security Engineer, learning to handle support tickets and gaining valuable exposure to confidential security operations. [cite: 40]</li>
+            [cite_start]<li>Actively monitored and researched emerging cybersecurity threats to contribute to the team's situational awareness. [cite: 41]</li>
+        </ul>
+    </div>
+
+    <div class="job-entry">
+        <h2>Certified Trainer</h2>
+        <h3>Chipotle | [cite_start]Huntsville, TX (Aug 2023 - Present) [cite: 26, 27, 28, 29]</h3>
+        <ul>
+            [cite_start]<li>Applied strong problem-solving skills to manage customer service issues and resolve conflicts in a high-pressure, fast-paced environment. [cite: 31]</li>
+            [cite_start]<li>Led end-of-shift closing procedures, coordinating with team members to ensure smooth operational transitions. [cite: 33]</li>
+            [cite_start]<li>Trained and mentored new team members on operational efficiency and service quality standards. [cite: 30]</li>
+        </ul>
+    </div>
+</MainLayout>
+<style>
+  .job-entry {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+  }
+  h2 { margin: 0 0 0.25rem 0; color: var(--accent-color); }
+  h3 { margin: 0 0 1rem 0; font-weight: 400; color: #aab2bb; }
+  ul { padding-left: 1.2rem; }
+  li { margin-bottom: 0.75rem; line-height: 1.6; }
+</style>
