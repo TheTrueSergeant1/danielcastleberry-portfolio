@@ -1,5 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+const allPosts = await Astro.glob('./posts/*.md');
+const featuredPosts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()).slice(0, 2);
 ---
 <MainLayout 
     title="Daniel Castleberry | Cybersecurity Portfolio" 
@@ -15,46 +17,141 @@ import MainLayout from '../layouts/MainLayout.astro';
             <a href="/contact" class="cta-secondary">Get In Touch</a>
         </div>
     </div>
+
+    <section class="home-section" data-aos="fade-up">
+        <h2 class="section-title">Featured Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">Security Tools (InsightIDR, ZScaler, Mimecast)</div>
+            <div class="skill-card">Digital Forensics</div>
+            <div class="skill-card">Threat Detection</div>
+            <div class="skill-card">Networking (CCNA Knowledge)</div>
+        </div>
+    </section>
+
+    <section class="home-section" data-aos="fade-up" data-aos-delay="100">
+        <h2 class="section-title">Recent Write-ups</h2>
+        <div class="post-list">
+            {featuredPosts.map((post) => (
+                <a href={post.url} class="post-card">
+                    <h3>{post.frontmatter.title}</h3>
+                    <p>{post.frontmatter.description}</p>
+                </a>
+            ))}
+        </div>
+    </section>
+
 </MainLayout>
 
 <style>
-  .hero-container {
+/* ... (keep your existing hero styles) */
+
+/* NEW Styles for the new sections */
+.home-section {
+    padding: 4rem 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.skill-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 500;
+}
+
+.post-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.post-card {
+    display: block;
+    text-decoration: none;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: 2rem;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-color);
+}
+
+h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--accent-color);
+}
+
+.post-card p {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.hero-container {
     text-align: center;
     padding: 4rem 1rem;
-  }
-  .hero-title {
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero-title {
     font-size: 3.5rem;
     font-weight: 800;
     margin-bottom: 0.5rem;
-  }
-  .hero-tagline {
+}
+
+.hero-tagline {
     font-size: 1.25rem;
     color: var(--text-color);
     max-width: 600px;
     margin: 0 auto 2rem auto;
-  }
-  .cta-buttons {
+}
+
+.cta-buttons {
     display: flex;
     justify-content: center;
     gap: 1rem;
-  }
-  a.cta-primary, a.cta-secondary {
+}
+
+a.cta-primary, a.cta-secondary {
     text-decoration: none;
     padding: 0.75rem 1.5rem;
-    border-radius: 2rem; /* This creates the squircle effect */
+    border-radius: 2rem; /* Squircle effect */
     font-weight: 600;
     transition: transform 0.2s ease-out, background-color 0.2s ease;
-  }
-  a.cta-primary {
+}
+
+a.cta-primary {
     background-color: var(--accent-color);
     color: var(--bg-color);
-  }
-  a.cta-secondary {
+}
+
+a.cta-secondary {
     background-color: transparent;
     color: var(--accent-color);
     border: 2px solid var(--accent-color);
-  }
-  a.cta-primary:hover, a.cta-secondary:hover {
+}
+
+a.cta-primary:hover, a.cta-secondary:hover {
     transform: translateY(-3px);
-  }
+}
 </style>

@@ -1,8 +1,8 @@
 ---
 layout: ../../layouts/MainLayout.astro
-title: 'TryHackMe: Blue Room Write-up'
+title: 'TryHackMe: Example problem for website'
 pubDate: 'September 19, 2025'
-description: 'A step-by-step walkthrough of exploiting the "Blue" room on TryHackMe, targeting the EternalBlue vulnerability.'
+description: 'Example blog post.'
 ---
 
 This post details my process for compromising the "Blue" machine on TryHackMe, a beginner-friendly room designed to teach fundamental Windows exploitation.

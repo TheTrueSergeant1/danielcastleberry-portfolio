@@ -5,7 +5,7 @@ const allPosts = await Astro.glob('./posts/*.md');
 ---
 <MainLayout title="Blog | Daniel Castleberry" description="CTF write-ups and security research.">
     <h1>Blog & Write-ups</h1>
-    <p>Documenting my journey through Capture The Flag challenges, security tool explorations, and research into cybersecurity concepts.</p>
+    <p>Documenting my journey and research into cybersecurity concepts.</p>
 
     <div class="post-list">
         {allPosts.map((post) => (
