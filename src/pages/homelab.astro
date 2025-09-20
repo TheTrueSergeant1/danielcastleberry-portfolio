@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import MainLayout from '../layouts/MainLayout.astro';
+import homelabDiagram from '../assets/homelab-diagram.png';
 ---
 <MainLayout title="My Homelab | Daniel Castleberry" description="An overview of my personal cybersecurity homelab for research and practice.">
     <h1>My Cybersecurity Homelab</h1>
@@ -8,7 +10,7 @@ import MainLayout from '../layouts/MainLayout.astro';
     </p>
 
     <div class="diagram-container" data-aos="fade-up">
-        <img src="/homelab-diagram.png" alt="A network diagram of the homelab setup">
+        <Image src={homelabDiagram} alt="A network diagram of the homelab setup" />
     </div>
 
     <div class="lab-section" data-aos="fade-up">

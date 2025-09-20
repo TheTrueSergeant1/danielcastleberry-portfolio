@@ -1,9 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import MainLayout from '../layouts/MainLayout.astro';
-import headshot from '../assets/headshot.png'; // Make sure you have headshot.jpg in src/assets/
+import headshot from '../assets/headshot.png';
 
-// Fetches all blog posts, sorts them by date, and takes the two most recent ones.
 const allPosts = await Astro.glob('./posts/*.md');
 const featuredPosts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()).slice(0, 2);
 ---
@@ -37,7 +36,7 @@ const featuredPosts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).va
         <h2 class="section-title">Recent Write-ups</h2>
         <div class="post-list">
             {featuredPosts.map((post) => (
-                <a href={post.url} class="post-card">
+                <a href={post.url} class="post-card interactive-card">
                     <h3>{post.frontmatter.title}</h3>
                     <p>{post.frontmatter.description}</p>
                 </a>
@@ -48,7 +47,6 @@ const featuredPosts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).va
 </MainLayout>
 
 <style>
-    /* Hero and Button Styles */
     .hero-container {
         text-align: center;
         padding: 4rem 1rem;
@@ -59,7 +57,7 @@ const featuredPosts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).va
         align-items: center;
     }
     .headshot-img {
-        border-radius: 50%; /* Makes it a circle */
+        border-radius: 50%;
         border: 3px solid var(--accent-color);
         margin-bottom: 1.5rem;
     }
@@ -82,7 +80,7 @@ const featuredPosts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).va
     a.cta-primary, a.cta-secondary {
         text-decoration: none;
         padding: 0.75rem 1.5rem;
-        border-radius: 2rem; /* Squircle effect */
+        border-radius: 2rem;
         font-weight: 600;
         transition: transform 0.2s ease-out, background-color 0.2s ease;
     }
@@ -98,8 +96,6 @@ const featuredPosts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).va
     a.cta-primary:hover, a.cta-secondary:hover {
         transform: translateY(-3px);
     }
-
-    /* Styles for the new sections */
     .home-section {
         padding: 4rem 0;
     }
@@ -135,11 +131,6 @@ const featuredPosts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).va
         border: 1px solid var(--border-color);
         padding: 1.5rem;
         border-radius: 2rem;
-        transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-    .post-card:hover {
-        transform: translateY(-5px);
-        border-color: var(--accent-color);
     }
     h3 {
         margin: 0 0 0.5rem 0;
@@ -148,5 +139,15 @@ const featuredPosts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).va
     .post-card p {
         margin: 0;
         color: var(--text-color);
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        .section-title {
+            font-size: 2rem;
+        }
     }
 </style>

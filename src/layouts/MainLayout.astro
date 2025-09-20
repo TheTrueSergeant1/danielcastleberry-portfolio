@@ -37,21 +37,37 @@ const { title, description } = Astro.props;
         <main>
             <slot /> </main>
         <Footer />
+
+        <script is:inline>
+            const update = (e) => {
+                const x = e.clientX || (e.touches && e.touches[0].clientX);
+                const y = e.clientY || (e.touches && e.touches[0].clientY);
+
+                if (x !== undefined && y !== undefined) {
+                    document.documentElement.style.setProperty('--x', x + 'px');
+                    document.documentElement.style.setProperty('--y', y + 'px');
+                }
+            }
+            document.addEventListener('mousemove', update);
+            document.addEventListener('touchmove', update);
+        </script>
     </body>
 </html>
 
 <style is:global>
-  /* Global styles for our dark, frosted-glass theme */
+  /* Upgraded Typography */
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap');
+
   :root {
-    --bg-color: #0d1117; /* A dark navy, like GitHub's dark mode */
+    --bg-color: #0d1117;
     --text-color: #c9d1d9;
-    --accent-color: #58a6ff; /* A bright blue for links and highlights */
+    --accent-color: #58a6ff;
     --border-color: rgba(255, 255, 255, 0.1);
     --glass-bg: rgba(26, 31, 40, 0.75);
   }
 
   html {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Sora', system-ui, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     scroll-behavior: smooth;
@@ -59,27 +75,63 @@ const { title, description } = Astro.props;
 
   body {
     margin: 0;
-    padding: 8rem 2rem 2rem 2rem; /* Top padding to avoid content hiding behind fixed header */
+    padding: 8rem 2rem 2rem 2rem;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    /* Cursor Spotlight Effect */
+    background-image: radial-gradient(
+        circle 300px at var(--x) var(--y),
+        rgba(29, 78, 216, 0.15),
+        transparent 80%
+    );
   }
 
   main {
     max-width: 800px;
     margin: auto;
     width: 100%;
-    flex-grow: 1; /* Ensures the main content pushes the footer down */
+    flex-grow: 1;
   }
 
   h1, h2, h3 {
     line-height: 1.2;
   }
+
+  /* Glow on Hover Effect */
+  .interactive-card {
+      position: relative;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+  .interactive-card:hover {
+      border-color: rgba(88, 166, 255, 0.5);
+  }
+  .interactive-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(800px circle at var(--x) var(--y), rgba(29, 78, 216, 0.3), transparent 40%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+  }
+  .interactive-card:hover::before {
+      opacity: 1;
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    body {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+  }
 </style>
 
 <script>
     import AOS from 'aos';
-    import 'aos/dist/aos.css'; // This line imports the CSS for the library
+    import 'aos/dist/aos.css';
 
     AOS.init({
         once: true,

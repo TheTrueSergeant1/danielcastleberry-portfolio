@@ -4,12 +4,12 @@
     <nav>
         <a href="/" class="logo">DC</a>
         <ul>
-            <li><a href="/skills">Skills</a></li>
-            <li><a href="/experience">Experience</a></li>
-            <li><a href="/projects">Projects</a></li> 
-            <li><a href="/homelab">Homelab</a></li>
-            <li><a href="/certifications">Certs</a></li>
-            <li><a href="/blog">Blog</a></li>
+            <li><a href="/skills" data-astro-prefetch>Skills</a></li>
+            <li><a href="/experience" data-astro-prefetch>Experience</a></li>
+            <li><a href="/projects" data-astro-prefetch>Projects</a></li>
+            <li><a href="/homelab" data-astro-prefetch>Homelab</a></li>
+            <li><a href="/certifications" data-astro-prefetch>Certs</a></li>
+            <li><a href="/blog" data-astro-prefetch>Blog</a></li>
         </ul>
     </nav>
 </header>
@@ -44,6 +44,7 @@
     padding: 0;
     margin: 0;
     display: flex;
+    flex-wrap: wrap; /* Allows links to wrap on smaller screens */
     gap: 1.5rem;
   }
   a {
@@ -54,5 +55,16 @@
   }
   a:hover {
     color: var(--accent-color);
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    ul {
+        justify-content: center; /* Centers the links when they wrap */
+    }
   }
 </style>
