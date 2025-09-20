@@ -1,65 +1,108 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 ---
+
 <MainLayout title="Skills | Daniel Castleberry" description="A list of technical skills and competencies.">
     <h1>Technical Skills</h1>
     <div class="skills-grid">
         <div class="skill-card">
             <h2>Operating Systems</h2>
-            <ul>
-                 <li>Linux </li>
-                 <li>Windows </li>
-                 <li>Virtual Machines </li>
-            </ul>
+            <div class="pill-container">
+                <span class="pill">Linux</span>
+                <span class="pill">Windows</span>
+                <span class="pill">Virtual Machines</span>
+            </div>
         </div>
+
         <div class="skill-card">
             <h2>Security Tools</h2>
-            <ul>
-                 <li>Insight IDR (Rapid7) </li>
-                 <li>ServiceNow </li>
-                 <li>ZScaler </li>
-                 <li>Trend Micro Suite </li>
-                 <li>Mimecast </li>
-            </ul>
+            <div class="pill-container">
+                <span class="pill">Insight IDR (Rapid7)</span>
+                <span class="pill">ServiceNow</span>
+                <span class="pill">ZScaler</span>
+                <span class="pill">Trend Micro Suite</span>
+                <span class="pill">Mimecast</span>
+            </div>
         </div>
+
         <div class="skill-card">
             <h2>Security Concepts</h2>
-            <ul>
-                 <li>Threat Detection </li>
-                 <li>Digital Forensics </li>
-                 <li>Cryptography </li>
-                 <li>Networking (CCNA Knowledge) </li>
-            </ul>
+            <div class="pill-container">
+                <span class="pill">Threat Detection</span>
+                <span class="pill">Digital Forensics</span>
+                <span class="pill">Cryptography</span>
+                <span class="pill">Networking (CCNA Knowledge)</span>
+            </div>
         </div>
+
         <div class="skill-card">
             <h2>Programming & Web</h2>
-            <ul>
-                 <li>C++ </li>
-                 <li>Java </li>
-                 <li>HTML, CSS, JavaScript (basic) </li>
-            </ul>
+            <div class="pill-container">
+                <span class="pill">C++</span>
+                <span class="pill">Java</span>
+                <span class="pill">HTML</span>
+                <span class="pill">CSS</span>
+                <span class="pill">JavaScript (basic)</span>
+            </div>
         </div>
     </div>
 </MainLayout>
+
 <style>
-  /* Styles for frosted glass squircle cards */
+  /* Skills grid layout */
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
+    align-items: stretch;
   }
+
   .skill-card {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
     padding: 1.5rem;
     border-radius: 2rem; /* Squircle effect */
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
   }
+
   .skill-card:hover {
     transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(88, 166, 255, 0.4); /* card glow */
+    border-color: var(--accent-color);
   }
-  h2 { margin-top: 0; color: var(--accent-color); }
-  ul { padding-left: 1.2rem; }
-  li { margin-bottom: 0.5rem; }
+
+  h2 { 
+    margin-top: 0; 
+    color: var(--accent-color); 
+  }
+
+  /* Pill container (natural flow) */
+  .pill-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  /* Individual pill style */
+  .pill {
+    background: var(--accent-color);
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px; /* Pill shape */
+    font-size: 0.9rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+
+  .pill:hover {
+    background: var(--accent-color-hover, #3a6ff7);
+    box-shadow: 0 0 12px rgba(88, 166, 255, 0.6); /* Glow effect */
+    transform: translateY(-2px); /* subtle lift */
+  }
 </style>

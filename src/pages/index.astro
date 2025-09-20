@@ -3,151 +3,149 @@ import { Image } from 'astro:assets';
 import MainLayout from '../layouts/MainLayout.astro';
 import headshot from '../assets/headshot.png';
 
-const allPosts = await Astro.glob('./posts/*.md');
-const featuredPosts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()).slice(0, 2);
+// Define featured write-ups (Astro pages) manually
+const allPosts = [
+  {
+    title: "Portfolio Website Overview",
+    description: "An in-depth overview of my fully functional Astro cybersecurity portfolio website.",
+    url: "/portfolio-overview",
+    pubDate: "September 20, 2025"
+  },
+  // Add more posts here as you create new .astro pages
+];
+
+// Sort by newest first and pick top 2 for featured section
+const featuredPosts = allPosts
+  .sort((a, b) => new Date(b.pubDate).valueOf() - new Date(a.pubDate).valueOf())
+  .slice(0, 2);
 ---
+
 <MainLayout 
-    title="Daniel Castleberry | Cybersecurity Portfolio" 
-    description="The professional portfolio for Daniel Castleberry, a cybersecurity student specializing in security operations and digital forensics."
+  title="Daniel Castleberry | Cybersecurity Portfolio" 
+  description="The professional portfolio for Daniel Castleberry, a cybersecurity student."
 >
-    <div class="hero-container">
-        <Image src={headshot} alt="A professional headshot of Daniel Castleberry" width="150" class="headshot-img" />
-        <h1 class="hero-title">Daniel Castleberry</h1>
-        <p class="hero-tagline">
-            A proactive and dedicated Junior Cybersecurity student with hands-on internship experience in security operations. Eager to apply technical skills and a diligent work ethic to a challenging entry-level cybersecurity position.
-        </p>
-        <div class="cta-buttons">
-            <a href="/resume.pdf" class="cta-primary">View Resume</a>
-            <a href="/contact" class="cta-secondary">Get In Touch</a>
-        </div>
+  <!-- Hero Section -->
+  <div class="hero-container" data-aos="fade-up">
+    <Image 
+      src={headshot} 
+      alt="A professional headshot of Daniel Castleberry" 
+      width="150" 
+      class="headshot-img" 
+    />
+    <h1 class="hero-title">Daniel Castleberry</h1>
+    <p class="hero-tagline">
+      A proactive and dedicated Junior Cybersecurity student with hands-on internship experience in security operations. 
+      Eager to apply technical skills and a diligent work ethic.
+    </p>
+    <div class="cta-buttons">
+      <a href="/resume.pdf" class="button">View Resume</a>
+      <a href="/contact" class="button">Get In Touch</a>
     </div>
+  </div>
 
-    <section class="home-section" data-aos="fade-up">
-        <h2 class="section-title">Featured Skills</h2>
-        <div class="skills-grid">
-            <div class="skill-card">Security Tools (InsightIDR, ZScaler, Mimecast)</div>
-            <div class="skill-card">Digital Forensics</div>
-            <div class="skill-card">Threat Detection</div>
-            <div class="skill-card">Networking (CCNA Knowledge)</div>
-        </div>
-    </section>
+  <!-- Featured Skills -->
+  <section class="home-section" data-aos="fade-up">
+    <h2>Featured Skills</h2>
+    <div class="skills">
+      <span class="skill-tag">Security Tools (InsightIDR, ZScaler, Mimecast)</span>
+      <span class="skill-tag">Digital Forensics</span>
+      <span class="skill-tag">Threat Detection</span>
+      <span class="skill-tag">Networking (CCNA Knowledge)</span>
+    </div>
+  </section>
 
-    <section class="home-section" data-aos="fade-up" data-aos-delay="100">
-        <h2 class="section-title">Recent Write-ups</h2>
-        <div class="post-list">
-            {featuredPosts.map((post) => (
-                <a href={post.url} class="post-card interactive-card">
-                    <h3>{post.frontmatter.title}</h3>
-                    <p>{post.frontmatter.description}</p>
-                </a>
-            ))}
-        </div>
-    </section>
-
+  <!-- Recent Write-ups -->
+  <section class="home-section" data-aos="fade-up">
+    <h2>Recent Write-ups</h2>
+    <div class="posts">
+      {featuredPosts.map(post => (
+        <a href={post.url} class="post-card">
+          <h3>{post.title}</h3>
+          <p>{post.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
 </MainLayout>
 
 <style>
-    .hero-container {
-        text-align: center;
-        padding: 4rem 1rem;
-        min-height: 50vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .headshot-img {
-        border-radius: 50%;
-        border: 3px solid var(--accent-color);
-        margin-bottom: 1.5rem;
-    }
-    .hero-title {
-        font-size: 3.5rem;
-        font-weight: 800;
-        margin-bottom: 0.5rem;
-    }
-    .hero-tagline {
-        font-size: 1.25rem;
-        color: var(--text-color);
-        max-width: 600px;
-        margin: 0 auto 2rem auto;
-    }
-    .cta-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-    }
-    a.cta-primary, a.cta-secondary {
-        text-decoration: none;
-        padding: 0.75rem 1.5rem;
-        border-radius: 2rem;
-        font-weight: 600;
-        transition: transform 0.2s ease-out, background-color 0.2s ease;
-    }
-    a.cta-primary {
-        background-color: var(--accent-color);
-        color: var(--bg-color);
-    }
-    a.cta-secondary {
-        background-color: transparent;
-        color: var(--accent-color);
-        border: 2px solid var(--accent-color);
-    }
-    a.cta-primary:hover, a.cta-secondary:hover {
-        transform: translateY(-3px);
-    }
-    .home-section {
-        padding: 4rem 0;
-    }
-    .section-title {
-        text-align: center;
-        font-size: 2.5rem;
-        margin-bottom: 2rem;
-        font-weight: 700;
-    }
-    .skills-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-    }
-    .skill-card {
-        background: var(--glass-bg);
-        border: 1px solid var(--border-color);
-        padding: 0.75rem 1.5rem;
-        border-radius: 2rem;
-        font-weight: 500;
-    }
-    .post-list {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    .post-card {
-        display: block;
-        text-decoration: none;
-        background: var(--glass-bg);
-        backdrop-filter: blur(10px);
-        border: 1px solid var(--border-color);
-        padding: 1.5rem;
-        border-radius: 2rem;
-    }
-    h3 {
-        margin: 0 0 0.5rem 0;
-        color: var(--accent-color);
-    }
-    .post-card p {
-        margin: 0;
-        color: var(--text-color);
-    }
-    
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-        .hero-title {
-            font-size: 2.5rem;
-        }
-        .section-title {
-            font-size: 2rem;
-        }
-    }
+  .hero-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .headshot-img {
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .hero-tagline {
+    max-width: 600px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* Sections */
+  .home-section {
+    margin: 4rem 0;
+    text-align: center;
+  }
+
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  /* Posts */
+  .posts {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .post-card {
+    display: block;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    background-color: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.2s ease;
+  }
+
+  .post-card:hover {
+    border-color: var(--accent-color);
+    background-color: rgba(29, 78, 216, 0.2);
+  }
+
+  .post-card h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--accent-color);
+  }
+
+  .post-card p {
+    margin: 0;
+    color: var(--text-color);
+  }
 </style>

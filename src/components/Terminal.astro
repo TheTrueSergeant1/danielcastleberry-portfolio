@@ -1,0 +1,193 @@
+---
+---
+<div id="terminal-component">
+  <div class="terminal-body" id="terminal-body">
+    <div id="terminal-output"></div>
+    <div class="input-line">
+      <span class="prompt">user@dc-portfolio:~$</span>
+      <input type="text" id="terminal-input" autocomplete="off" autofocus />
+      <span class="cursor">_</span>
+    </div>
+  </div>
+</div>
+
+<style>
+#terminal-component {
+  position: fixed;
+  inset: 0;
+  background: rgba(13,17,23,0.95);
+  display: none;
+  flex-direction: column;
+  padding: 1rem;
+  z-index: 1000;
+  backdrop-filter: blur(6px);
+}
+body.terminal-mode #terminal-component { display: flex; }
+
+.terminal-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  color: #c9d1d9;
+  padding-bottom: 1rem;
+}
+
+.input-line {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.prompt { color: #58a6ff; font-weight: bold; }
+
+#terminal-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #c9d1d9;
+  flex-grow: 1;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.cursor {
+  color: #58a6ff;
+  animation: blink 1s step-start infinite;
+}
+@keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
+
+.terminal-output-line {
+  margin: 0.2rem 0;
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+.terminal-command { color: #58a6ff; font-weight: bold; }
+.terminal-description { color: #c9d1d9; }
+.terminal-error { color: #f87171; font-weight: bold; }
+</style>
+
+<script>
+const terminalBody = document.getElementById('terminal-body');
+const output = document.getElementById('terminal-output');
+const input = document.getElementById('terminal-input');
+
+// Full content from your Astro pages
+const pageContent = {
+  'about.astro': `Daniel Castleberry - About Me
+I am a proactive Junior Cybersecurity student with hands-on 
+internship experience in security operations. Eager to apply 
+technical skills and a diligent work ethic.
+
+-Learn more in the grapical portion of the site!`,
+
+  'skills.astro': `Technical Skills Overview
+- Operating Systems: Linux, Windows, Virtual Machines
+- Security Tools: Insight IDR (Rapid 7), ServiceNow, ZScaler, Trend Micro Suite, Mimecast
+- Security Concepts: Threat Detection, Digital Forensics, Cryptography, Networking (CCNA Knowledge)
+- Programming & Web: C++, Java, HTML, CSS, Javascript(basic)`,
+
+  'experience.astro': `Experience Summary
+- Cybersecurity Intern at US Silica (Summer 2023)
+--------------------------------------------------
+  - Modernized phishing awareness training materials, directly enhancing employee understanding of critical cyber safety concepts.
+  - Gained direct, hands-on experience with enterprise-grade security software including InsightIDR, ServiceNow, and Mimecast.
+  - Shadowed the Senior Security Engineer, learning to handle support tickets and gaining valuable exposure to confidential security operations.
+  - Actively monitored and researched emerging cybersecurity threats to contribute to the team's situational awareness.
+  ================================================================================================================================================
+- Certified Traner at Chipotle (2023 - Current)
+--------------------------------------------------
+  - Applied strong problem-solving skills to manage customer service issues and resolve conflicts in a high-pressure, fast-paced environment.
+  - Led end-of-shift closing procedures, coordinating with team members to ensure smooth operational transitions.
+  - Trained and mentored new team members on operational efficiency and service quality standards.`,
+
+  'homelab.astro': `Homelab Overview
+- Built a personal cybersecurity lab with multiple VMs
+- Practiced penetration testing and network defense scenarios
+- Experimented with SIEM tools and forensic analysis
+
+-Learn more and see diagrams in the grapical portion of the site!`,
+
+  'certifications.astro': `Certifications Overview
+         IN PROGRESS
+  ===========================
+- CompTIA Security+ (2024)
+- Cisco CCNA (2023)
+- A+
+
+-See the road map in the grapical portion of the site!`,
+
+  'projects.astro': `Projects Summary
+- Personal Portfolio Website (Astro)
+- Cybersecurity Homelab`,
+
+  'blog.astro': `Blog Summary
+- Nothing here yet...`
+};
+
+// Terminal commands
+const commands = {
+  whoami: () => 'Daniel Castleberry - Cybersecurity Student',
+  date: () => new Date().toString(),
+  ls: () => Object.keys(pageContent).join('\n'),
+  cat: (args) => {
+    const filename = args[0];
+    if (pageContent[filename]) return pageContent[filename];
+    return `cat: ${filename}: No such file or directory`;
+  },
+  help: () => {
+    const helpLines = [
+      ['whoami', 'Display user info'],
+      ['date', 'Show current date and time'],
+      ['ls', 'List readable files'],
+      ['cat [file]', "Display content of a file"],
+      ['gui', 'Return to GUI view'],
+      ['clear', 'Clear the terminal screen']
+    ];
+    return helpLines.map(line => `${line[0]} - ${line[1]}`).join('\n');
+  },
+  clear: () => { output.innerHTML = ''; return ''; },
+  gui: () => { document.body.classList.remove('terminal-mode'); return ''; }
+};
+
+// Command history
+let history = [];
+let historyIndex = -1;
+
+// Append text to terminal
+function appendOutput(text) {
+  const lines = text.split('\n');
+  lines.forEach(line => {
+    const div = document.createElement('div');
+    div.className = 'terminal-output-line';
+    div.textContent = line;
+    output.appendChild(div);
+  });
+  terminalBody.scrollTop = terminalBody.scrollHeight;
+}
+
+// Handle input
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const fullCmd = input.value.trim();
+    if (!fullCmd) return;
+    appendOutput(`user@dc-portfolio:~$ ${fullCmd}`);
+    history.push(fullCmd);
+    historyIndex = history.length;
+    input.value = '';
+    const [command, ...args] = fullCmd.split(' ');
+    if (commands[command]) {
+      const result = typeof commands[command] === 'function' ? commands[command](args) : commands[command];
+      if (result) appendOutput(result);
+    } else {
+      appendOutput(`Command not found: ${command}`);
+    }
+  } else if (e.key === 'ArrowUp') {
+    if (historyIndex > 0) { historyIndex--; input.value = history[historyIndex]; }
+  } else if (e.key === 'ArrowDown') {
+    if (historyIndex < history.length - 1) { historyIndex++; input.value = history[historyIndex]; }
+    else { historyIndex = history.length; input.value = ''; }
+  }
+});
+</script>

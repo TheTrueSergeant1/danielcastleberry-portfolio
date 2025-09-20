@@ -32,7 +32,15 @@ import MainLayout from '../layouts/MainLayout.astro';
             </a>
         </div>
 
-        <form name="contact" method="POST" data-netlify="true" class="contact-form" data-aos="fade-up" data-aos-delay="100">
+        <form 
+            name="contact" 
+            method="POST" 
+            action="/success"  data-netlify="true" 
+            data-netlify-recaptcha="true" 
+            class="contact-form" 
+            data-aos="fade-up" 
+            data-aos-delay="100"
+        >
             <input type="hidden" name="form-name" value="contact" />
             <div class="form-group">
                 <label for="name">Name</label>
@@ -46,6 +54,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                 <label for="message">Message</label>
                 <textarea id="message" name="message" rows="5" required></textarea>
             </div>
+            <div data-netlify-recaptcha="true"></div>
             <button type="submit" class="cta-primary">Send Message</button>
         </form>
     </div>
@@ -130,8 +139,9 @@ import MainLayout from '../layouts/MainLayout.astro';
         background-color: var(--accent-color);
         color: var(--bg-color);
         transition: transform 0.2s ease-out;
+        margin-top: 1rem; /* Added margin for spacing with reCAPTCHA */
     }
     .cta-primary:hover {
-        transform: translateY(-px);
+        transform: translateY(-3px);
     }
 </style>

@@ -2,34 +2,265 @@
 import MainLayout from '../layouts/MainLayout.astro';
 ---
 <MainLayout title="Certifications | Daniel Castleberry" description="A list of my cybersecurity certifications.">
-    <h1>Certifications</h1>
-    <p>A log of my completed certifications and my roadmap for future learning.</p>
+  <h1>Certifications</h1>
+  <p>A log of my certifications, current progress, and roadmap for future learning.</p>
 
-    <h2>In Progress</h2>
-    <div class="cert-card">
-        <h3>CCNA</h3>
-        <p><strong>Expected Completion:</strong> TBD</p>
-        <p>Focuses on fundamental networking concepts and skills required to install, configure, and troubleshoot networks.</p>
+  <div class="timeline">
+
+    <!-- In Progress -->
+    <div class="timeline-section" data-aos="fade-up" data-aos-once="true">
+      <h2>In Progress</h2>
+      <div class="cert-grid">
+        <div class="cert-card" data-aos="fade-up" data-aos-delay="50">
+          <div class="cert-header">
+            <img src="/logos/ccna.png" alt="CCNA Logo" class="cert-logo" />
+            <h3>CCNA</h3>
+            <span class="badge in-progress">In Progress</span>
+          </div>
+          <p><strong>Expected Completion:</strong> TBD</p>
+          <p>Focuses on fundamental networking concepts and skills required to install, configure, and troubleshoot networks.</p>
+        </div>
+
+        <div class="cert-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="cert-header">
+            <img src="/logos/security-plus.png" alt="Security+ Logo" class="cert-logo" />
+            <h3>CompTIA Security+</h3>
+            <span class="badge in-progress">In Progress</span>
+          </div>
+          <p><strong>Expected Completion:</strong> TBD</p>
+          <p>Focuses on core cybersecurity skills and is the foundational cert for an IT security career.</p>
+        </div>
+
+        <div class="cert-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="cert-header">
+            <img src="/logos/a-plus.png" alt="A+ Logo" class="cert-logo" />
+            <h3>A+</h3>
+            <span class="badge in-progress">In Progress</span>
+          </div>
+          <p><strong>Expected Completion:</strong> TBD</p>
+          <p>Entry-level credential for IT professionals, validating skills in hardware, networking, operating systems, and troubleshooting.</p>
+        </div>
+      </div>
     </div>
-    <div class="cert-card">
-        <h3>CompTIA Security+</h3>
-        <p><strong>Expected Completion:</strong> TBD</p>
-        <p>Focuses on core cybersecurity skills and is the foundational cert for an IT security career.</p>
+
+    <!-- Completed -->
+    <div class="timeline-section" data-aos="fade-up" data-aos-delay="200">
+      <h2>Completed</h2>
+      <p style="text-align:center; color: var(--text-color); font-style: italic; margin-top:1rem;">
+        No certifications completed yet. Stay tuned!
+      </p>
     </div>
-    <div class="cert-card">
-        <h3>A+</h3>
-        <p><strong>Expected Completion:</strong> TBD</p>
-        <p>Entry-level credential for IT professionals, validating skills in hardware, networking, operating systems, and troubleshooting.</p>
+
+    <!-- Future Roadmap -->
+    <div class="timeline-section" data-aos="fade-up" data-aos-delay="250">
+      <h2>Future Certifications Roadmap</h2>
+      <div class="cert-grid">
+        <div class="cert-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="cert-header">
+            <img src="/logos/ceh.png" alt="CEH Logo" class="cert-logo" />
+            <h3>CEH (Certified Ethical Hacker)</h3>
+            <span class="badge roadmap">Planned</span>
+          </div>
+          <p>Advanced certification in ethical hacking and penetration testing, focusing on real-world security skills.</p>
+        </div>
+
+        <div class="cert-card" data-aos="fade-up" data-aos-delay="350">
+          <div class="cert-header">
+            <img src="/logos/cissp.png" alt="CISSP Logo" class="cert-logo" />
+            <h3>CISSP (Certified Information Systems Security Professional)</h3>
+            <span class="badge roadmap">Planned</span>
+          </div>
+          <p>Industry-recognized certification for cybersecurity leadership, policies, and advanced security concepts.</p>
+        </div>
+      </div>
     </div>
+
+  </div>
+
+  <script is:inline>
+    const sections = document.querySelectorAll('.timeline-section');
+    const options = { threshold: 0.3 };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        } else {
+          entry.target.classList.remove('active');
+        }
+      });
+    }, options);
+
+    sections.forEach(section => observer.observe(section));
+  </script>
 </MainLayout>
+
 <style>
-    .cert-card {
-        background: var(--glass-bg);
-        border: 1px solid var(--border-color);
-        padding: 1.5rem;
-        border-radius: 1rem;
-        margin-bottom: 1.5rem;
-    }
-    h2 { margin-top: 2rem; color: var(--accent-color); }
-    h3 { margin-top: 0; }
+/* Radial background for entire page */
+body {
+  background: radial-gradient(circle at 50% 20%, rgba(88,166,255,0.08), transparent 70%), var(--bg-color);
+  background-attachment: fixed;
+}
+
+/* Headings */
+h2 {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  color: var(--accent-color);
+  text-align: center;
+}
+
+/* Timeline container */
+.timeline {
+  position: relative;
+  margin: 5rem 0;
+  padding-left: 2rem;
+}
+
+/* Timeline sections */
+.timeline-section {
+  position: relative;
+  margin-bottom: 5rem;
+  padding-left: 1.5rem;
+}
+
+/* Timeline dot and connecting line */
+.timeline-section::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  background: var(--accent-color);
+  border-radius: 50%;
+  border: 3px solid var(--bg-color);
+  transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+  transform: scale(0.7);
+  opacity: 0.5;
+  box-shadow: 0 0 0 rgba(88,166,255,0.4);
+}
+
+/* Connecting line from dot to next section */
+.timeline-section::after {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  top: 1.7rem;
+  width: 3px;
+  height: 0;
+  background: var(--accent-color);
+  opacity: 0.3;
+  border-radius: 2px;
+  transition: height 0.8s ease-out;
+}
+
+/* Animate line growth when section is active */
+.timeline-section.active::after {
+  height: calc(100% + 3rem); /* slightly past next section for continuous look */
+}
+
+/* Glow and pulse when active */
+.timeline-section.active::before {
+  animation: pulse 2s infinite;
+  transform: scale(1);
+  opacity: 1;
+  box-shadow: 0 0 12px rgba(88,166,255,0.6);
+}
+
+/* Pulse keyframes */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+/* Grid layout for cards */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Card styling */
+.cert-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  padding: 1.8rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.cert-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* Header inside card */
+.cert-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cert-header h3 {
+  margin: 0 0.5rem 0 0;
+  color: var(--accent-color);
+  font-size: 1.3rem;
+}
+
+.cert-logo {
+  width: 45px;
+  height: 45px;
+  margin-right: 0.6rem;
+}
+
+/* Badge styles */
+.badge {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.in-progress {
+  background-color: #facc15;
+  color: #1f1f1f;
+}
+
+.completed {
+  background-color: #22c55e;
+  color: #fff;
+}
+
+.roadmap {
+  background-color: #38bdf8;
+  color: #1f1f1f;
+}
+
+.cert-card p {
+  margin: 0.6rem 0;
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .timeline {
+    padding-left: 1.5rem;
+  }
+  .timeline-section::before {
+    left: -0.1rem;
+  }
+  .timeline-section::after {
+    left: 0.4rem;
+  }
+  .cert-grid {
+    gap: 1.5rem;
+  }
+}
 </style>
