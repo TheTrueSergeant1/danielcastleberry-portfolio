@@ -1,0 +1,44 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+<MainLayout title="About Me | Daniel Castleberry" description="Learn more about my journey into cybersecurity.">
+    <h1>About Me</h1>
+    <div class="content" data-aos="fade-up">
+        <h2>My Journey Into Cybersecurity</h2>
+        <p>
+            My journey into cybersecurity began in junior high school, sparked by a friend who was developing modifications for the game Minecraft. 
+            I was fascinated by the idea that technical knowledge could fundamentally alter a system's behavior and push its boundaries.<br>
+            <br>This initial curiosity led me to explore the security of these modifications, and eventually other software. 
+            I learned to deconstruct code, identify vulnerabilities, and understand how systems could be exploited. 
+            As I matured, I realized that the same skills used to find security flaws could be applied for a greater purpose: to prevent them. 
+            This realization was a turning point, guiding me to channel my passion into defensive security. 
+            My career is now dedicated to creating the tools and strategies that protect systems, grounded in a foundational understanding of an attacker's mindset.
+
+        </p>
+
+        <h2>What I'm Passionate About</h2>
+        <p>
+            The area of cybersecurity that excites me most is malware analysis. My passion for this discipline was solidified in my college digital forensics class, where I first had the opportunity to use a disassembler like IDA Pro to reverse-engineer a sample. I was immediately captivated by the process of deconstructing malicious code to understand its behavior at a fundamental level.
+            <br><br>What I find compelling is how static lines of code can produce dynamic, almost life-like behavior within a machine. To me, analyzing malware isn't just about reading bits and bytes; it's like performing a digital autopsy, methodically uncovering the purpose and function of a complex entity.
+            <br><br>This analytical mindset is why I am drawn to the Blue Team. I want to apply these forensic skills to investigate security incidents, hunt for threats, and understand the intricate workings of the systems I'm tasked to protect. The continuous challenge of dissecting threats to build stronger defenses is the driving force behind my ambition in cybersecurity.
+        </p>
+
+        <h2>Beyond the Keyboard</h2>
+        <p>
+            When I step away from the keyboard, I enjoy activities that challenge my mind and body in different ways. I'm an avid participant in obstacle course training, similar to what you might see on American Ninja Warrior. It’s a fantastic discipline that requires both physical strength and on-the-fly problem-solving, providing a great balance to the focused nature of tech work.
+            <br><br>I also have a lifelong passion for building LEGO sets. What started as a childhood hobby has become a form of meditation for me. The methodical, step-by-step process of assembling a complex structure is incredibly calming and provides the unique satisfaction of creating a finished product with precision and patience.
+            <br><br>Additionally, I practice marksmanship at the shooting range. It’s an exercise in discipline, patience, and precision, requiring a level of concentration that I find translates directly to the focus needed in cybersecurity.
+        </p>
+    </div>
+</MainLayout>
+<style>
+    .content {
+        line-height: 1.8;
+    }
+    .content h2 {
+        color: var(--accent-color);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.5rem;
+        margin-top: 2rem;
+    }
+</style>

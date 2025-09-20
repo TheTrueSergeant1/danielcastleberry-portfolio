@@ -5,24 +5,25 @@ import MainLayout from '../layouts/MainLayout.astro';
     <div class="contact-container">
         <h1>Get In Touch</h1>
         <p>
-            I'm always open to discussing new opportunities, projects, or just talking about cybersecurity. The best way to reach me is through email or LinkedIn.
+            I'm always open to discussing new opportunities, projects, or just talking about cybersecurity. The best ways to reach me are through the form below, email, or LinkedIn.
         </p>
-        <div class="contact-links">
-            <a href="mailto:dancastlbusiness@gmail.com" class="contact-card">
+
+        <div class="contact-links" data-aos="fade-up">
+            <a href="mailto:dancastleberry2020@gmail.com" class="contact-card interactive-card">
                 <div class="icon">📧</div>
                 <div class="text">
                     <h3>Email</h3>
-                    <p>dancastlbusiness@gmail.com</p>
+                    <p>dancastleberry2020@gmail.com</p>
                 </div>
             </a>
-            <a href="https://www.linkedin.com/in/daniel-castleberry-022395281/" target="_blank" class="contact-card">
+            <a href="#" target="_blank" class="contact-card interactive-card">
                 <div class="icon">💼</div>
                 <div class="text">
                     <h3>LinkedIn</h3>
                     <p>Connect with me professionally.</p>
                 </div>
             </a>
-            <a href="https://github.com/TheTrueSergeant1" target="_blank" class="contact-card">
+            <a href="https://github.com/TheTrueSergeant1" target="_blank" class="contact-card interactive-card">
                 <div class="icon">💾</div>
                 <div class="text">
                     <h3>GitHub</h3>
@@ -30,6 +31,23 @@ import MainLayout from '../layouts/MainLayout.astro';
                 </div>
             </a>
         </div>
+
+        <form name="contact" method="POST" data-netlify="true" class="contact-form" data-aos="fade-up" data-aos-delay="100">
+            <input type="hidden" name="form-name" value="contact" />
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="cta-primary">Send Message</button>
+        </form>
     </div>
 </MainLayout>
 
@@ -48,25 +66,18 @@ import MainLayout from '../layouts/MainLayout.astro';
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 1.5rem;
     }
-
-    /* --- Start of Updated Styles --- */
     .contact-card {
         display: flex;
-        flex-direction: column; /* Lays out items vertically */
-        align-items: center;    /* Centers items horizontally */
-        text-align: center;     /* Centers the text itself */
-        gap: 1rem;              /* Adjusts space between icon and text */
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
         text-decoration: none;
         background: var(--glass-bg);
         backdrop-filter: blur(10px);
         border: 1px solid var(--border-color);
-        padding: 2rem 1.5rem;   /* Adjusted padding for vertical layout */
+        padding: 2rem 1.5rem;
         border-radius: 2rem;
-        transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-    .contact-card:hover {
-        transform: translateY(-5px);
-        border-color: var(--accent-color);
     }
     .icon {
         font-size: 2rem;
@@ -79,7 +90,48 @@ import MainLayout from '../layouts/MainLayout.astro';
         margin: 0;
         font-size: 1rem;
         color: var(--text-color);
-        overflow-wrap: break-word; /* Ensures long words like emails still wrap if needed */
+        overflow-wrap: break-word;
     }
-    /* --- End of Updated Styles --- */
+
+    /* Form Styles */
+    .contact-form {
+        background: var(--glass-bg);
+        border: 1px solid var(--border-color);
+        padding: 2rem;
+        border-radius: 1rem;
+        margin-top: 3rem;
+        text-align: left;
+    }
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+    input, textarea {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: rgba(0,0,0,0.2);
+        border: 1px solid var(--border-color);
+        border-radius: 0.5rem;
+        color: var(--text-color);
+        font-family: inherit;
+        font-size: 1rem;
+        box-sizing: border-box; /* Ensures padding doesn't affect width */
+    }
+    .cta-primary {
+        border: none;
+        cursor: pointer;
+        padding: 0.75rem 1.5rem;
+        border-radius: 2rem;
+        font-weight: 600;
+        background-color: var(--accent-color);
+        color: var(--bg-color);
+        transition: transform 0.2s ease-out;
+    }
+    .cta-primary:hover {
+        transform: translateY(-px);
+    }
 </style>
