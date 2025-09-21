@@ -29,7 +29,7 @@ const { title, description } = Astro.props;
 
     <!-- GUI view -->
     <div id="gui-view">
-      <Header />
+      <Header id="main-header" />
       <main>
         <slot />
       </main>
@@ -44,6 +44,24 @@ const { title, description } = Astro.props;
       import AOS from 'aos';
       import 'aos/dist/aos.css';
       AOS.init({ once: true, duration: 600, easing: 'ease-out-quad' });
+
+      // --- Header scroll collapse ---
+      const header = document.getElementById('main-header');
+      if(header){
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+          const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+          if (currentScroll > lastScroll && currentScroll > 100) {
+            // scrolling down
+            header.classList.add('scrolled-down');
+          } else if (currentScroll < lastScroll) {
+            // scrolling up
+            header.classList.remove('scrolled-down');
+          }
+          lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+        });
+      }
     </script>
   </body>
 </html>
@@ -103,6 +121,35 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* --- Collapsible Header Styles --- */
+#main-header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1200px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-radius: 2rem;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: center;
+  z-index: 999;
+  transition: all 0.5s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+#main-header.scrolled-down {
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  max-width: 600px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+#main-header.scrolled-down a {
+  font-size: 0.9rem;
 }
 
 /* buttons (resume / contact) */
