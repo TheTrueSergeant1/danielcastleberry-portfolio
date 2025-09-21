@@ -2,86 +2,183 @@
 import { Image } from 'astro:assets';
 import MainLayout from '../layouts/MainLayout.astro';
 import homelabDiagram from '../assets/homelab-diagram.png';
+
+const frontmatter = {
+  title: "Cybersecurity Homelab",
+  description: "An overview of my personal cybersecurity homelab for research and practice.",
+  pubDate: "September 21, 2025"
+};
 ---
-<MainLayout title="My Homelab | Daniel Castleberry" description="An overview of my personal cybersecurity homelab for research and practice.">
-    <h1>My Cybersecurity Homelab</h1>
-    <p class="intro">
-        This is a multi-segmented environment designed for practical cybersecurity training. It allows me to host services, conduct malware analysis, and practice network defense techniques in a safely isolated setup.
-    </p>
+<MainLayout title={frontmatter.title} description={frontmatter.description}>
+  <article class="post-content">
 
-    <div class="diagram-container" data-aos="fade-up">
+    <header class="post-header bubble">
+      <h1>{frontmatter.title}</h1>
+      <p class="post-date">{frontmatter.pubDate}</p>
+    </header>
+
+    <section class="bubble">
+      <p class="intro">
+        This is a multi-segmented environment designed for practical cybersecurity training.  
+        It allows me to host services, conduct malware analysis, and practice network defense techniques in a safely isolated setup.
+      </p>
+    </section>
+
+    <section class="bubble" data-aos="fade-up">
+      <div class="diagram-container">
         <Image src={homelabDiagram} alt="A network diagram of the homelab setup" />
-    </div>
+      </div>
+    </section>
 
-    <div class="lab-section" data-aos="fade-up">
-        <h2>Network Infrastructure</h2>
-        <ul>
-            <li><strong>Managed Switch:</strong> Forms the core of the lab, enabling traffic segmentation through Virtual LANs (VLANs).</li>
-            <li><strong>Raspberry Pi 5 (DNS Sinkhole):</strong> Runs Pi-hole to provide network-wide ad and tracker blocking. All DNS queries are routed through this device to filter malicious domains before they can be accessed.</li>
-        </ul>
-    </div>
+    <section class="bubble" data-aos="fade-up">
+      <h2>Network Infrastructure</h2>
+      <p>
+        The lab's core setup enabling traffic segmentation and DNS filtering.
+      </p>
+      <div class="inner-bubble"><strong>Managed Switch:</strong> Forms the core of the lab, enabling traffic segmentation through VLANs.</div>
+      <div class="inner-bubble"><strong>Raspberry Pi 5 (DNS Sinkhole):</strong> Runs Pi-hole for network-wide ad and tracker blocking.</div>
+    </section>
 
-    <div class="lab-section" data-aos="fade-up">
-        <h2>Production & Services Network</h2>
-        <p>This segment hosts my always-on services and is connected directly to the primary router for external access when needed.</p>
-        <ul>
-            <li><strong>Utility Server (PC):</strong> Functions as a multi-purpose server hosting a web server, a private Minecraft server, and a Network Attached Storage (NAS) for file sharing and backups.</li>
-        </ul>
-    </div>
-    
-    <div class="lab-section" data-aos="fade-up">
-        <h2>Analysis & Research VLAN</h2>
-        <p>My primary workstation is isolated on its own VLAN to protect it from other network segments and provide a controlled environment for coursework and sandboxed testing.</p>
-        <ul>
-            <li><strong>Primary Workstation (PC):</strong> My main machine for lab work and university coursework.</li>
-            <li><strong>Virtualization:</strong> VMWare Workstation 17 is used to run a variety of virtual machines for safe experimentation.</li>
-            <li><strong>Guest VMs:</strong> Kali Linux (for offensive security tools), Ubuntu (for general-purpose testing), and a sandboxed Windows XP instance (for observing malware behavior in a legacy environment).</li>
-        </ul>
-    </div>
+    <section class="bubble" data-aos="fade-up">
+      <h2>Production & Services Network</h2>
+      <p>
+        Hosts always-on services with external access through the primary router.
+      </p>
+      <div class="inner-bubble"><strong>Utility Server (PC):</strong> Multi-purpose server hosting a web server, Minecraft server, and NAS.</div>
+    </section>
 
-    <div class="lab-section" data-aos="fade-up">
-        <h2>Air-Gapped Malware Detonation Environment</h2>
-        <p>For analyzing high-risk malware, I use a physically separate, air-gapped machine with no network connectivity to ensure complete containment.</p>
-        <ul>
-            <li><strong>Hardware:</strong> A dedicated Lenovo laptop.</li>
-            <li><strong>Operating System:</strong> Runs Windows XP natively to analyze malware targeting older systems. The entire device is wiped and reimaged after each analysis session to ensure a clean state.</li>
-        </ul>
-    </div>
+    <section class="bubble" data-aos="fade-up">
+      <h2>Analysis & Research VLAN</h2>
+      <p>
+        Primary workstation isolated for coursework and sandboxed testing.
+      </p>
+      <div class="inner-bubble"><strong>Primary Workstation (PC):</strong> Main machine for lab work and university coursework.</div>
+      <div class="inner-bubble"><strong>Virtualization:</strong> VMWare Workstation 17 to run multiple virtual machines safely.</div>
+      <div class="inner-bubble"><strong>Guest VMs:</strong> Kali Linux, Ubuntu, Windows XP sandbox for malware observation.</div>
+    </section>
 
+    <section class="bubble" data-aos="fade-up">
+      <h2>Air-Gapped Malware Detonation Environment</h2>
+      <p>
+        A physically separate machine with no network connectivity for high-risk malware analysis.
+      </p>
+      <div class="inner-bubble"><strong>Hardware:</strong> Dedicated Lenovo laptop.</div>
+      <div class="inner-bubble"><strong>Operating System:</strong> Windows XP, wiped and reimaged after each session.</div>
+    </section>
+
+  </article>
 </MainLayout>
 
 <style>
-    .intro { 
-        font-size: 1.1rem; 
-        max-width: 60ch; 
-    }
-    .diagram-container {
-        margin: 2rem 0;
-        text-align: center;
-    }
-    .diagram-container img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 1rem;
-        background: rgba(40, 48, 61, 0.5);
-        border: 1px solid var(--border-color);
-    }
-    .lab-section { 
-        margin-bottom: 2.5rem; 
-    }
-    h2 { 
-        color: var(--accent-color); 
-        border-bottom: 1px solid var(--border-color); 
-        padding-bottom: 0.5rem; 
-    }
-    p { 
-        line-height: 1.6; 
-    }
-    ul { 
-        list-style-type: square; 
-        padding-left: 1.5rem; 
-    }
-    li { 
-        margin-bottom: 0.75rem; 
-    }
+.post-content {
+  max-width: 900px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Outer bubbles */
+.bubble {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  line-height: 1.7;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bubble:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+
+/* Inner bubbles */
+.inner-bubble {
+  padding: 0.8rem 1.2rem;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  margin: 0.8rem 0;
+  color: #d0d5e0;
+  line-height: 1.4;
+  font-weight: 600;
+  background: rgba(50, 70, 100, 0.65);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.inner-bubble:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+/* Header */
+.post-header h1 {
+  color: var(--accent-color);
+  font-size: 2.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.post-date {
+  font-size: 0.9rem;
+  color: #aab2bb;
+}
+
+/* Section headings */
+h2 {
+  color: var(--accent-color);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+p, li {
+  color: var(--text-color);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Diagram styling */
+.diagram-container {
+  margin: 2rem 0;
+  text-align: center;
+}
+.diagram-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  background: rgba(40, 48, 61, 0.5);
+  border: 1px solid var(--border-color);
+}
+
+/* Intro paragraph */
+.intro {
+  font-size: 1.1rem;
+  max-width: 60ch;
+  margin-bottom: 1rem;
+}
+
+/* Inline list (if needed in future sections) */
+.inline-list {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inline-list li::before {
+  content: "• ";
+  color: var(--accent-color);
+  display: inline-block;
+  width: 1em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .post-content { padding: 1rem; gap: 1rem; }
+  .bubble { padding: 1.5rem; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.6rem; }
+}
 </style>

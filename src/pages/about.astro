@@ -1,44 +1,116 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+
+const frontmatter = {
+  title: "About Me | Daniel Castleberry",
+  description: "Learn more about my journey into cybersecurity.",
+  pubDate: "September 21, 2025"
+};
 ---
-<MainLayout title="About Me | Daniel Castleberry" description="Learn more about my journey into cybersecurity.">
-    <h1>About Me</h1>
-    <div class="content" data-aos="fade-up">
-        <h2>My Journey Into Cybersecurity</h2>
-        <p>
-            My journey into cybersecurity began in junior high school, sparked by a friend who was developing modifications for the game Minecraft. 
-            I was fascinated by the idea that technical knowledge could fundamentally alter a system's behavior and push its boundaries.<br>
-            <br>This initial curiosity led me to explore the security of these modifications, and eventually other software. 
-            I learned to deconstruct code, identify vulnerabilities, and understand how systems could be exploited. 
-            As I matured, I realized that the same skills used to find security flaws could be applied for a greater purpose: to prevent them. 
-            This realization was a turning point, guiding me to channel my passion into defensive security. 
-            My career is now dedicated to creating the tools and strategies that protect systems, grounded in a foundational understanding of an attacker's mindset.
 
-        </p>
+<MainLayout title={frontmatter.title} description={frontmatter.description}>
+  <article class="post-content">
 
-        <h2>What I'm Passionate About</h2>
-        <p>
-            The area of cybersecurity that excites me most is malware analysis. My passion for this discipline was solidified in my college digital forensics class, where I first had the opportunity to use a disassembler like IDA Pro to reverse-engineer a sample. I was immediately captivated by the process of deconstructing malicious code to understand its behavior at a fundamental level.
-            <br><br>What I find compelling is how static lines of code can produce dynamic, almost life-like behavior within a machine. To me, analyzing malware isn't just about reading bits and bytes; it's like performing a digital autopsy, methodically uncovering the purpose and function of a complex entity.
-            <br><br>This analytical mindset is why I am drawn to the Blue Team. I want to apply these forensic skills to investigate security incidents, hunt for threats, and understand the intricate workings of the systems I'm tasked to protect. The continuous challenge of dissecting threats to build stronger defenses is the driving force behind my ambition in cybersecurity.
-        </p>
+    <header class="post-header bubble">
+      <h1>{frontmatter.title}</h1>
+      <p class="post-date">{frontmatter.pubDate}</p>
+    </header>
 
-        <h2>Beyond the Keyboard</h2>
-        <p>
-            When I step away from the keyboard, I enjoy activities that challenge my mind and body in different ways. I'm an avid participant in obstacle course training, similar to what you might see on American Ninja Warrior. It’s a fantastic discipline that requires both physical strength and on-the-fly problem-solving, providing a great balance to the focused nature of tech work.
-            <br><br>I also have a lifelong passion for building LEGO sets. What started as a childhood hobby has become a form of meditation for me. The methodical, step-by-step process of assembling a complex structure is incredibly calming and provides the unique satisfaction of creating a finished product with precision and patience.
-            <br><br>Additionally, I practice marksmanship at the shooting range. It’s an exercise in discipline, patience, and precision, requiring a level of concentration that I find translates directly to the focus needed in cybersecurity.
-        </p>
-    </div>
+    <section class="bubble" data-aos="fade-up">
+      <h2>My Journey Into Cybersecurity</h2>
+      <p>
+        My journey into cybersecurity began in junior high school, sparked by a friend who was developing modifications for the game Minecraft. 
+        I was fascinated by the idea that technical knowledge could fundamentally alter a system's behavior and push its boundaries.
+      </p>
+      <p>
+        This initial curiosity led me to explore the security of these modifications, and eventually other software. 
+        I learned to deconstruct code, identify vulnerabilities, and understand how systems could be exploited. 
+        As I matured, I realized that the same skills used to find security flaws could be applied for a greater purpose: to prevent them. 
+        This realization was a turning point, guiding me to channel my passion into defensive security. 
+        My career is now dedicated to creating the tools and strategies that protect systems, grounded in a foundational understanding of an attacker's mindset.
+      </p>
+    </section>
+
+    <section class="bubble" data-aos="fade-up">
+      <h2>What I'm Passionate About</h2>
+      <p>
+        The area of cybersecurity that excites me most is malware analysis. My passion for this discipline was solidified in my college digital forensics class, where I first had the opportunity to use a disassembler like IDA Pro to reverse-engineer a sample. I was immediately captivated by the process of deconstructing malicious code to understand its behavior at a fundamental level.
+      </p>
+      <p>
+        What I find compelling is how static lines of code can produce dynamic, almost life-like behavior within a machine. To me, analyzing malware isn't just about reading bits and bytes; it's like performing a digital autopsy, methodically uncovering the purpose and function of a complex entity.
+      </p>
+      <p>
+        This analytical mindset is why I am drawn to the Blue Team. I want to apply these forensic skills to investigate security incidents, hunt for threats, and understand the intricate workings of the systems I'm tasked to protect. The continuous challenge of dissecting threats to build stronger defenses is the driving force behind my ambition in cybersecurity.
+      </p>
+    </section>
+
+    <section class="bubble" data-aos="fade-up">
+      <h2>Beyond the Keyboard</h2>
+      <p>
+        When I step away from the keyboard, I enjoy activities that challenge my mind and body in different ways. I'm an avid participant in obstacle course training, similar to what you might see on American Ninja Warrior. It’s a fantastic discipline that requires both physical strength and on-the-fly problem-solving, providing a great balance to the focused nature of tech work.
+      </p>
+      <p>
+        I also have a lifelong passion for building LEGO sets. What started as a childhood hobby has become a form of meditation for me. The methodical, step-by-step process of assembling a complex structure is incredibly calming and provides the unique satisfaction of creating a finished product with precision and patience.
+      </p>
+      <p>
+        Additionally, I practice marksmanship at the shooting range. It’s an exercise in discipline, patience, and precision, requiring a level of concentration that I find translates directly to the focus needed in cybersecurity.
+      </p>
+    </section>
+
+  </article>
 </MainLayout>
+
 <style>
-    .content {
-        line-height: 1.8;
-    }
-    .content h2 {
-        color: var(--accent-color);
-        border-bottom: 1px solid var(--border-color);
-        padding-bottom: 0.5rem;
-        margin-top: 2rem;
-    }
+.post-content {
+  max-width: 900px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.bubble {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  line-height: 1.7;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.post-header h1 {
+  color: var(--accent-color);
+  font-size: 2.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.post-date {
+  font-size: 0.9rem;
+  color: #aab2bb;
+}
+
+h2 {
+  color: var(--accent-color);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  color: var(--text-color);
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .post-content {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .bubble {
+    padding: 1.5rem;
+  }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.4rem; }
+}
 </style>

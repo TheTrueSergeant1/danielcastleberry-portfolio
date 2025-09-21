@@ -2,27 +2,29 @@
 import MainLayout from '../layouts/MainLayout.astro';
 ---
 <MainLayout title="Contact | Daniel Castleberry" description="Get in touch with Daniel Castleberry.">
-    <div class="contact-container">
+    <section class="contact-section" data-aos="fade-up">
         <h1>Get In Touch</h1>
         <p>
             I'm always open to discussing new opportunities, projects, or just talking about cybersecurity. The best ways to reach me are through the form below, email, or LinkedIn.
         </p>
 
-        <div class="contact-links" data-aos="fade-up">
-            <a href="mailto:dancastleberry2020@gmail.com" class="contact-card interactive-card">
+        <div class="contact-links">
+            <a href="mailto:dancastlbusiness@gmail.com" class="contact-card interactive-card">
                 <div class="icon">📧</div>
                 <div class="text">
                     <h3>Email</h3>
-                    <p>dancastleberry2020@gmail.com</p>
+                    <p>dancastlbusiness@gmail.com</p>
                 </div>
             </a>
-            <a href="#" target="_blank" class="contact-card interactive-card">
+
+            <a href="https://www.linkedin.com/in/daniel-castleberry-022395281/" target="_blank" class="contact-card interactive-card">
                 <div class="icon">💼</div>
                 <div class="text">
                     <h3>LinkedIn</h3>
                     <p>Connect with me professionally.</p>
                 </div>
             </a>
+
             <a href="https://github.com/TheTrueSergeant1" target="_blank" class="contact-card interactive-card">
                 <div class="icon">💾</div>
                 <div class="text">
@@ -35,7 +37,8 @@ import MainLayout from '../layouts/MainLayout.astro';
         <form 
             name="contact" 
             method="POST" 
-            action="/success"  data-netlify="true" 
+            action="/success"  
+            data-netlify="true" 
             data-netlify-recaptcha="true" 
             class="contact-form" 
             data-aos="fade-up" 
@@ -57,91 +60,111 @@ import MainLayout from '../layouts/MainLayout.astro';
             <div data-netlify-recaptcha="true"></div>
             <button type="submit" class="cta-primary">Send Message</button>
         </form>
-    </div>
+    </section>
 </MainLayout>
 
 <style>
-    .contact-container {
-        text-align: center;
-    }
-    .contact-container p {
-        max-width: 500px;
-        margin: 1rem auto 3rem auto;
-        font-size: 1.1rem;
-        line-height: 1.6;
-    }
-    .contact-links {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-    }
-    .contact-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 1rem;
-        text-decoration: none;
-        background: var(--glass-bg);
-        backdrop-filter: blur(10px);
-        border: 1px solid var(--border-color);
-        padding: 2rem 1.5rem;
-        border-radius: 2rem;
-    }
-    .icon {
-        font-size: 2rem;
-    }
-    h3 {
-        margin: 0 0 0.25rem 0;
-        color: var(--accent-color);
-    }
-    .text p {
-        margin: 0;
-        font-size: 1rem;
-        color: var(--text-color);
-        overflow-wrap: break-word;
-    }
+.contact-section {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+}
 
-    /* Form Styles */
-    .contact-form {
-        background: var(--glass-bg);
-        border: 1px solid var(--border-color);
-        padding: 2rem;
-        border-radius: 1rem;
-        margin-top: 3rem;
-        text-align: left;
-    }
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
-    label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-    }
-    input, textarea {
-        width: 100%;
-        padding: 0.75rem;
-        background-color: rgba(0,0,0,0.2);
-        border: 1px solid var(--border-color);
-        border-radius: 0.5rem;
-        color: var(--text-color);
-        font-family: inherit;
-        font-size: 1rem;
-        box-sizing: border-box; /* Ensures padding doesn't affect width */
-    }
-    .cta-primary {
-        border: none;
-        cursor: pointer;
-        padding: 0.75rem 1.5rem;
-        border-radius: 2rem;
-        font-weight: 600;
-        background-color: var(--accent-color);
-        color: var(--bg-color);
-        transition: transform 0.2s ease-out;
-        margin-top: 1rem; /* Added margin for spacing with reCAPTCHA */
-    }
-    .cta-primary:hover {
-        transform: translateY(-3px);
-    }
+.contact-section p {
+    margin: 1rem 0 3rem 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Contact Links */
+.contact-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    text-decoration: none;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    padding: 2rem 1.5rem;
+    border-radius: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(88,166,255,0.15);
+}
+
+.icon {
+    font-size: 2rem;
+}
+
+h3 {
+    margin: 0 0 0.25rem 0;
+    color: var(--accent-color);
+}
+
+.text p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-color);
+    overflow-wrap: break-word;
+}
+
+/* Form Styles */
+.contact-form {
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: rgba(0,0,0,0.2);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.cta-primary {
+    border: none;
+    cursor: pointer;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    transition: transform 0.2s ease-out;
+    margin-top: 1rem;
+}
+
+.cta-primary:hover {
+    transform: translateY(-3px);
+}
 </style>

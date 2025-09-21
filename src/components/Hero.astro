@@ -1,34 +1,42 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
 import { Image } from 'astro:assets';
 import headshot from '../assets/headshot.png';
+import { onMount } from 'solid-js';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 ---
 
-<MainLayout title="Daniel Castleberry | Portfolio" description="Cybersecurity student portfolio showcasing skills, projects, and experience.">
-
-  <!-- Hero Section -->
-  <section class="hero" data-aos="fade-up">
-    <div class="hero-container">
-      <div class="hero-text">
-        <div class="hero-text-glow"></div>
-        <h1>Daniel Castleberry</h1>
-        <p class="tagline">Cybersecurity Student | Homelab Enthusiast | Aspiring Analyst</p>
-        <div class="hero-buttons">
-          <a href="/resume.pdf" target="_blank" class="cta-primary shimmer">Download Resume</a>
-          <a href="/contact" class="cta-secondary shimmer">Contact Me</a>
-        </div>
-      </div>
-      <div class="hero-image">
-        <div class="headshot-glow"></div>
-        <Image src={headshot} alt="Daniel Castleberry" class="headshot"/>
+<section class="hero" data-aos="fade-up">
+  <div class="hero-container">
+    <div class="hero-text">
+      <div class="hero-text-glow"></div>
+      <h1>Daniel Castleberry</h1>
+      <p class="tagline">Cybersecurity Student | Homelab Enthusiast | Aspiring Analyst</p>
+      <div class="hero-buttons">
+        <a href="/resume.pdf" target="_blank" class="cta-primary shimmer">Download Resume</a>
+        <a href="/contact" class="cta-secondary shimmer">Contact Me</a>
       </div>
     </div>
-  </section>
+    <div class="hero-image">
+      <div class="headshot-glow"></div>
+      <Image src={headshot} alt="Daniel Castleberry" class="headshot"/>
+    </div>
+  </div>
 
-</MainLayout>
+  <script type="module">
+    // Ensure AOS initializes only on the client
+    document.addEventListener('DOMContentLoaded', () => {
+      AOS.init({
+        once: true,
+        duration: 800,
+        easing: 'ease-in-out',
+      });
+    });
+  </script>
+</section>
 
 <style>
-/* Hero Section */
+/* Hero Section Styling (same as before) */
 .hero {
   display: flex;
   align-items: center;
