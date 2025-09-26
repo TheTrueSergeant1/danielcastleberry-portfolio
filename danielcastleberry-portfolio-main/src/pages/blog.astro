@@ -1,0 +1,128 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+// Define blog posts manually with links to Astro pages
+const allPosts = [
+  {
+    title: "Portfolio Website Overview",
+    description: "An in-depth overview of my fully functional Astro cybersecurity portfolio website.",
+    pubDate: "September 20, 2025",
+    url: "/portfolio-overview"
+  },
+  // Add additional posts here as needed
+];
+
+const frontmatter = {
+  title: "Blog | Daniel Castleberry",
+  description: "CTF write-ups and security research.",
+  pubDate: "September 21, 2025"
+};
+---
+
+<MainLayout title={frontmatter.title} description={frontmatter.description}>
+  <article class="post-content">
+
+    <header class="post-header bubble">
+      <h1>{frontmatter.title}</h1>
+      <p class="post-date">{frontmatter.pubDate}</p>
+    </header>
+
+    <section class="bubble" data-aos="fade-up">
+      <p>Documenting my journey and research into cybersecurity concepts.</p>
+    </section>
+
+    <section class="bubble" data-aos="fade-up">
+      <div class="post-list">
+        {allPosts.map((post) => (
+          <a href={post.url} class="post-card" data-aos="fade-up">
+            <h2>{post.title}</h2>
+            <p>{post.description}</p>
+            <time>{post.pubDate}</time>
+          </a>
+        ))}
+      </div>
+    </section>
+
+  </article>
+</MainLayout>
+
+<style>
+.post-content {
+  max-width: 900px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.bubble {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  line-height: 1.7;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.post-header h1 {
+  color: var(--accent-color);
+  font-size: 2.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.post-date {
+  font-size: 0.9rem;
+  color: #aab2bb;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.post-card {
+  display: block;
+  text-decoration: none;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  border-radius: 2rem;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: var(--accent-color);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+h2 {
+  margin: 0 0 0.5rem 0;
+  color: var(--accent-color);
+}
+
+p {
+  margin: 0 0 1rem 0;
+  color: var(--text-color);
+}
+
+time {
+  font-size: 0.9rem;
+  color: #aab2bb;
+}
+
+@media (max-width: 768px) {
+  .post-content {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .bubble {
+    padding: 1.5rem;
+  }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.4rem; }
+}
+</style>

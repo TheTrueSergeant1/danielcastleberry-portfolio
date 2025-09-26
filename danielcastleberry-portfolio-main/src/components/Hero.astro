@@ -1,0 +1,211 @@
+---
+import { Image } from 'astro:assets';
+import headshot from '../assets/headshot.png';
+import { onMount } from 'solid-js';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+---
+
+<section class="hero" data-aos="fade-up">
+  <div class="hero-container">
+    <div class="hero-text">
+      <div class="hero-text-glow"></div>
+      <h1>Daniel Castleberry</h1>
+      <p class="tagline">Cybersecurity Student | Homelab Enthusiast | Aspiring Analyst</p>
+      <div class="hero-buttons">
+        <a href="/resume.pdf" target="_blank" class="cta-primary shimmer">Download Resume</a>
+        <a href="/contact" class="cta-secondary shimmer">Contact Me</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="headshot-glow"></div>
+      <Image src={headshot} alt="Daniel Castleberry" class="headshot"/>
+    </div>
+  </div>
+
+  <script type="module">
+    // Ensure AOS initializes only on the client
+    document.addEventListener('DOMContentLoaded', () => {
+      AOS.init({
+        once: true,
+        duration: 800,
+        easing: 'ease-in-out',
+      });
+    });
+  </script>
+</section>
+
+<style>
+/* Hero Section Styling (same as before) */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  width: 100%;
+  position: relative;
+}
+
+.hero-text {
+  max-width: 500px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-text-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(88,166,255,0.2) 0%, rgba(88,166,255,0) 70%);
+  transform: translate(-50%, -50%);
+  filter: blur(80px);
+  animation: glowPulse 6s infinite alternate;
+  z-index: -1;
+}
+
+@keyframes glowPulse {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.7; }
+}
+
+.hero-text h1 {
+  font-size: 3.25rem;
+  font-weight: 900;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 6px rgba(88,166,255,0.15);
+}
+
+.tagline {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: #8b949e;
+  line-height: 1.5;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cta-primary, .cta-secondary {
+  display: inline-block;
+  padding: 0.75rem 1.75rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-primary {
+  background: linear-gradient(135deg, #5858ff, #7a5fff);
+  color: var(--bg-color);
+  box-shadow: 0 0 8px rgba(88,166,255,0.5), 0 4px 12px rgba(88,166,255,0.2);
+}
+
+.cta-secondary {
+  background-color: rgba(88,166,255,0.1);
+  color: #58a6ff;
+  border: 2px solid #58a6ff;
+  box-shadow: 0 0 6px rgba(88,166,255,0.3);
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.05), rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+  transform: skewX(-25deg);
+  animation: shimmer 6s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -80%; }
+  100% { left: 120%; }
+}
+
+.cta-primary:hover, .cta-secondary:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 18px rgba(88,166,255,0.6), 0 6px 20px rgba(88,166,255,0.3);
+}
+
+.hero-image {
+  position: relative;
+}
+
+.headshot-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(88,166,255,0.25) 0%, rgba(88,166,255,0) 70%);
+  transform: translate(-50%, -50%);
+  filter: blur(50px);
+  animation: headshotPulse 6s infinite alternate;
+  z-index: -1;
+}
+
+@keyframes headshotPulse {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+  100% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.6; }
+}
+
+.hero-image .headshot {
+  border-radius: 50%;
+  border: 3px solid var(--accent-color);
+  max-width: 220px;
+  height: auto;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.hero-image .headshot:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 25px rgba(88,166,255,0.4);
+}
+
+@media (max-width: 768px) {
+  .hero-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .hero-text h1 {
+    font-size: 2.25rem;
+  }
+
+  .tagline {
+    font-size: 1.15rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero-image .headshot {
+    max-width: 160px;
+  }
+}
+</style>

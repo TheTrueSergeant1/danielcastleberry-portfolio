@@ -1,0 +1,134 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const frontmatter = {
+  title: "Professional Experience",
+  description: "Professional and internship experience.",
+  pubDate: "September 21, 2025"
+};
+---
+<MainLayout title={frontmatter.title} description={frontmatter.description}>
+  <article class="post-content">
+
+    <header class="post-header bubble">
+      <h1>{frontmatter.title}</h1>
+      <p class="post-date">{frontmatter.pubDate}</p>
+    </header>
+
+    <section class="bubble" data-aos="fade-up">
+      <p>
+        My professional experience includes cybersecurity internships and leadership roles in fast-paced environments.  
+        Each position helped me develop technical expertise, operational skills, and teamwork abilities.
+      </p>
+    </section>
+
+    <section class="bubble" data-aos="fade-up">
+      <h2>Cybersecurity Intern</h2>
+      <h3>US Silica | Katy, TX (Summer 2023)</h3>
+      <p>
+        Worked on enhancing employee cybersecurity awareness and gained hands-on experience with enterprise tools.
+      </p>
+      <div class="inner-bubble">Modernized phishing awareness training materials, improving employee understanding of cyber safety.</div>
+      <div class="inner-bubble">Gained experience with InsightIDR, ServiceNow, and Mimecast security software.</div>
+      <div class="inner-bubble">Shadowed Senior Security Engineer to handle support tickets and confidential operations.</div>
+      <div class="inner-bubble">Monitored and researched emerging cybersecurity threats for team situational awareness.</div>
+    </section>
+
+    <section class="bubble" data-aos="fade-up">
+      <h2>Certified Trainer</h2>
+      <h3>Chipotle | The Woodlands, TX (Aug 2023 - Present)</h3>
+      <p>
+        Applied operational skills in a fast-paced environment while mentoring and training team members.
+      </p>
+      <div class="inner-bubble">Managed customer service issues and resolved conflicts efficiently.</div>
+      <div class="inner-bubble">Led end-of-shift closing procedures with smooth operational transitions.</div>
+      <div class="inner-bubble">Trained and mentored new team members on efficiency and service standards.</div>
+    </section>
+
+  </article>
+</MainLayout>
+
+<style>
+.post-content {
+  max-width: 900px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Outer bubbles */
+.bubble {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  line-height: 1.7;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bubble:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+
+/* Inner bubbles for individual achievements/responsibilities */
+.inner-bubble {
+  padding: 0.8rem 1.2rem;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  margin: 0.8rem 0;
+  color: #d0d5e0;
+  line-height: 1.4;
+  font-weight: 600;
+  background: rgba(50, 70, 100, 0.65);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.inner-bubble:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+/* Header */
+.post-header h1 {
+  color: var(--accent-color);
+  font-size: 2.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.post-date {
+  font-size: 0.9rem;
+  color: #aab2bb;
+}
+
+/* Section headings */
+h2 {
+  color: var(--accent-color);
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+h3 {
+  font-weight: 400;
+  color: #aab2bb;
+  margin-bottom: 0.8rem;
+}
+
+p, li {
+  color: var(--text-color);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .post-content { padding: 1rem; gap: 1rem; }
+  .bubble { padding: 1.5rem; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.2rem; }
+}
+</style>

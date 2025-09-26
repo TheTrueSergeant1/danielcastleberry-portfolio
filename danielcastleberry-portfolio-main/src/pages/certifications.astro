@@ -1,0 +1,227 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const frontmatter = {
+  title: "Certifications",
+  description: "A list of my cybersecurity certifications.",
+  pubDate: "September 21, 2025"
+};
+---
+
+<MainLayout title={frontmatter.title} description={frontmatter.description}>
+  <article class="post-content">
+
+    <header class="post-header bubble">
+      <h1>{frontmatter.title}</h1>
+      <p class="post-date">{frontmatter.pubDate}</p>
+    </header>
+
+    <section class="bubble">
+      <p>
+        A log of my certifications, current progress, and roadmap for future learning.  
+        This section highlights the certifications I am currently pursuing, those I have completed, and planned future credentials for professional growth in cybersecurity.
+      </p>
+    </section>
+
+    <!-- In Progress -->
+    <section class="bubble">
+      <h2>In Progress</h2>
+      <div class="cert-grid" data-aos="fade-up" data-aos-once="true">
+        <div class="cert-card" data-aos="fade-up" data-aos-delay="50">
+          <div class="cert-header">
+            <img src="/logos/ccna.png" alt="CCNA Logo" class="cert-logo" />
+            <h3>CCNA</h3>
+            <span class="badge in-progress">In Progress</span>
+          </div>
+          <p><strong>Expected Completion:</strong> TBD</p>
+          <p>Focuses on fundamental networking concepts and skills required to install, configure, and troubleshoot networks.</p>
+        </div>
+
+        <div class="cert-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="cert-header">
+            <img src="/logos/security-plus.png" alt="Security+ Logo" class="cert-logo" />
+            <h3>CompTIA Security+</h3>
+            <span class="badge in-progress">In Progress</span>
+          </div>
+          <p><strong>Expected Completion:</strong> TBD</p>
+          <p>Focuses on core cybersecurity skills and is the foundational cert for an IT security career.</p>
+        </div>
+
+        <div class="cert-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="cert-header">
+            <img src="/logos/a-plus.png" alt="A+ Logo" class="cert-logo" />
+            <h3>A+</h3>
+            <span class="badge in-progress">In Progress</span>
+          </div>
+          <p><strong>Expected Completion:</strong> TBD</p>
+          <p>Entry-level credential for IT professionals, validating skills in hardware, networking, operating systems, and troubleshooting.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Completed -->
+    <section class="bubble">
+      <h2>Completed</h2>
+      <p style="text-align:center; color: var(--text-color); font-style: italic; margin-top:1rem;">
+        No certifications completed yet. Stay tuned!
+      </p>
+    </section>
+
+    <!-- Future Roadmap -->
+    <section class="bubble">
+      <h2>Future Certifications Roadmap</h2>
+      <div class="cert-grid">
+        <div class="cert-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="cert-header">
+            <img src="/logos/ceh.png" alt="CEH Logo" class="cert-logo" />
+            <h3>CEH (Certified Ethical Hacker)</h3>
+            <span class="badge roadmap">Planned</span>
+          </div>
+          <p>Advanced certification in ethical hacking and penetration testing, focusing on real-world security skills.</p>
+        </div>
+
+        <div class="cert-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="cert-header">
+            <img src="/logos/pentestplus.png" alt="Pentest+ Logo" class="cert-logo" />
+            <h3>CompTIA Pentest+</h3>
+            <span class="badge roadmap">Planned</span>
+          </div>
+          <p>Intermediate-level certification focused on penetration testing, vulnerability assessment, and ethical hacking practices for cybersecurity professionals.</p>
+        </div>
+      </div>
+    </section>
+
+  </article>
+
+  <script is:inline>
+    const sections = document.querySelectorAll('.timeline-section');
+    const options = { threshold: 0.3 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        } else {
+          entry.target.classList.remove('active');
+        }
+      });
+    }, options);
+    sections.forEach(section => observer.observe(section));
+  </script>
+</MainLayout>
+
+<style>
+.post-content {
+  max-width: 900px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.bubble {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  line-height: 1.7;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.post-header h1 {
+  color: var(--accent-color);
+  font-size: 2.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.post-date {
+  font-size: 0.9rem;
+  color: #aab2bb;
+}
+
+h2 {
+  color: var(--accent-color);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+p, li {
+  color: var(--text-color);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.cert-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  padding: 1.8rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.cert-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.cert-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cert-header h3 {
+  margin: 0 0.5rem 0 0;
+  color: var(--accent-color);
+  font-size: 1.3rem;
+}
+
+.cert-logo {
+  width: 45px;
+  height: 45px;
+  margin-right: 0.6rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.in-progress {
+  background-color: #facc15;
+  color: #1f1f1f;
+}
+
+.completed {
+  background-color: #22c55e;
+  color: #fff;
+}
+
+.roadmap {
+  background-color: #38bdf8;
+  color: #1f1f1f;
+}
+
+.cert-card p {
+  margin: 0.6rem 0;
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .cert-grid { gap: 1.5rem; }
+}
+</style>

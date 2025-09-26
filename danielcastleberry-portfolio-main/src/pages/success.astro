@@ -1,0 +1,42 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+<MainLayout title="Success | Daniel Castleberry" description="Your message has been sent successfully.">
+    <div class="container" data-aos="fade-up">
+        <div class="icon">✅</div>
+        <h1>Message Sent!</h1>
+        <p>Thank you for reaching out. I'll review your message and get back to you as soon as possible.</p>
+        <a href="/" class="cta-primary">Return to Homepage</a>
+    </div>
+</MainLayout>
+<style>
+    .container {
+        text-align: center;
+        padding: 4rem 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    .icon {
+        font-size: 4rem;
+    }
+    p {
+        max-width: 500px;
+        margin-bottom: 2rem;
+        font-size: 1.2rem;
+        line-height: 1.6;
+    }
+    .cta-primary {
+        text-decoration: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 2rem;
+        font-weight: 600;
+        background-color: var(--accent-color);
+        color: var(--bg-color);
+        transition: transform 0.2s ease-out;
+    }
+    .cta-primary:hover {
+        transform: translateY(-3px);
+    }
+</style>

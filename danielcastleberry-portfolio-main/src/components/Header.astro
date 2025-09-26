@@ -1,0 +1,227 @@
+---
+---
+<header>
+  <!-- Full header nav -->
+  <nav id="full-nav">
+    <a href="/" class="logo">DC</a>
+    <ul>
+      <li><a href="/" data-astro-prefetch>Home</a></li>
+      <li><a href="/about" data-astro-prefetch>About</a></li>
+      <li class="dropdown">
+        <button class="dropdown-toggle">Expertise</button>
+        <ul class="dropdown-menu">
+          <li><a href="/skills" data-astro-prefetch>Skills</a></li>
+          <li><a href="/experience" data-astro-prefetch>Experience</a></li>
+          <li><a href="/homelab" data-astro-prefetch>Homelab</a></li>
+          <li><a href="/certifications" data-astro-prefetch>Certs</a></li>
+        </ul>
+      </li>
+      <li><a href="/projects" data-astro-prefetch>Projects</a></li>
+      <li><a href="/blog" data-astro-prefetch>Blog</a></li>
+      <li>
+        <button id="header-terminal-toggle" class="terminal-btn">Terminal</button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Scroll pill -->
+  <nav id="header-pill">
+    <a href="/" class="logo-pill">DC</a>
+  </nav>
+</header>
+
+<style>
+  /* Full nav */
+  header {
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 4rem);
+    max-width: 800px;
+    z-index: 20;
+  }
+  nav#full-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 2rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 2rem;
+    transition: all 0.3s ease;
+  }
+  .logo {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    text-decoration: none;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  ul li {
+    display: flex;
+    align-items: center;
+  }
+  a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  a:hover { color: var(--accent-color); }
+
+  /* Dropdown */
+  .dropdown { position: relative; }
+  .dropdown-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s ease;
+  }
+  .dropdown-toggle:hover { color: var(--accent-color); }
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 0.75rem;
+    padding: 0.5rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+  .dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+  }
+  .dropdown-menu li { width: 100%; }
+  .dropdown-menu a {
+    display: block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+  }
+  .dropdown-menu a:hover { background-color: rgba(255,255,255,0.05); color: var(--accent-color); }
+
+  /* Terminal button */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+  .terminal-btn {
+    background: linear-gradient(135deg, #ff5f7a, #ff7e5f);
+    color: #fff;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.55rem 1.2rem;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(255, 95, 122, 0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+  }
+  .terminal-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 18px rgba(255, 95, 122, 0.6);
+    background: linear-gradient(135deg, #ff7e5f, #ff5f7a);
+  }
+
+  /* Scroll pill */
+  #header-pill {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 0.5rem 1.25rem;
+    border: 1px solid var(--border-color);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 60;
+  }
+  #header-pill .logo-pill {
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--accent-color);
+    text-decoration: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav#full-nav { flex-direction: column; gap: 1rem; }
+    ul { justify-content: center; }
+    .dropdown:hover .dropdown-menu { opacity: 0; visibility: hidden; }
+    .dropdown.is-open .dropdown-menu { opacity: 1; visibility: visible; }
+    .terminal-btn { padding: 0.4rem 0.8rem; font-size: 0.85rem; height: auto; animation: none; }
+  }
+</style>
+
+<script>
+  // Mobile dropdown
+  if (window.matchMedia("(max-width: 768px)").matches) {
+    const dropdown = document.querySelector('.dropdown');
+    const toggle = document.querySelector('.dropdown-toggle');
+    if (dropdown && toggle) {
+      toggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        dropdown.classList.toggle('is-open');
+      });
+      document.addEventListener('click', () => {
+        if (dropdown.classList.contains('is-open')) dropdown.classList.remove('is-open');
+      });
+    }
+  }
+
+  // Terminal toggle
+  const headerToggle = document.getElementById('header-terminal-toggle');
+  headerToggle?.addEventListener('click', () => {
+    document.body.classList.toggle('terminal-mode');
+    document.getElementById('terminal-input')?.focus();
+  });
+
+  // Scroll pill logic
+  const fullNav = document.getElementById('full-nav');
+  const pill = document.getElementById('header-pill');
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    if (currentScroll > 100 && currentScroll > lastScroll) {
+      // scrolling down -> show pill
+      fullNav.style.opacity = '0';
+      pill.style.opacity = '1';
+      pill.style.pointerEvents = 'auto';
+    } else if (currentScroll < lastScroll) {
+      // scrolling up -> show full nav
+      fullNav.style.opacity = '1';
+      pill.style.opacity = '0';
+      pill.style.pointerEvents = 'none';
+    }
+    lastScroll = currentScroll;
+  });
+</script>

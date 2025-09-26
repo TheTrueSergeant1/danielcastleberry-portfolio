@@ -1,0 +1,19 @@
+{
+  "name": "danielcastleberry-portfolio",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.6.0",
+    "aos": "^2.3.4",
+    "astro": "^5.13.9"
+  },
+  "devDependencies": {
+    "@types/aos": "^3.0.7"
+  }
+}
