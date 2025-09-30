@@ -1,7 +1,6 @@
 ---
 ---
 <header>
-  <!-- Full header nav -->
   <nav id="full-nav">
     <a href="/" class="logo">DC</a>
     <ul>
@@ -18,11 +17,12 @@
       </li>
       <li><a href="/projects" data-astro-prefetch>Projects</a></li>
       <li><a href="/blog" data-astro-prefetch>Blog</a></li>
-      <li><button id="header-terminal-toggle" class="terminal-btn">Terminal</button></li>
+      <li>
+        <button id="header-terminal-toggle" class="terminal-btn">Terminal</button>
+      </li>
     </ul>
   </nav>
 
-  <!-- Scroll pill -->
   <nav id="header-pill">
     <a href="/" class="logo-pill">DC</a>
   </nav>
@@ -65,6 +65,10 @@
     flex-wrap: wrap;
     gap: 1.5rem;
   }
+  ul li {
+    display: flex;
+    align-items: center;
+  }
   a {
     text-decoration: none;
     color: var(--text-color);
@@ -80,8 +84,8 @@
     border: none;
     color: var(--text-color);
     font-family: inherit;
-    font-size: 1rem;      /* reset font size */
-    font-weight: 500;     /* reset weight */
+    font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
     padding: 0;
     transition: color 0.2s ease;
@@ -100,7 +104,6 @@
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 0;
     min-width: 150px;
     opacity: 0;
     visibility: hidden;
@@ -119,19 +122,29 @@
   .dropdown-menu a:hover { background-color: rgba(255,255,255,0.05); color: var(--accent-color); }
 
   /* Terminal button */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
   .terminal-btn {
-    background-color: var(--accent-color, #5858ff);
+    background: linear-gradient(135deg, #ff5f7a, #ff7e5f);
     color: #fff;
     border: none;
     border-radius: 2rem;
-    padding: 0.5rem 1rem;
+    padding: 0.55rem 1.2rem;
     cursor: pointer;
     font-weight: bold;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    box-shadow: 0 4px 12px rgba(255, 95, 122, 0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
   }
   .terminal-btn:hover {
-    transform: scale(1.05);
-    background-color: #3a6ff7;
+    transform: scale(1.1);
+    box-shadow: 0 6px 18px rgba(255, 95, 122, 0.6);
+    background: linear-gradient(135deg, #ff7e5f, #ff5f7a);
   }
 
   /* Scroll pill */
@@ -163,50 +176,66 @@
     ul { justify-content: center; }
     .dropdown:hover .dropdown-menu { opacity: 0; visibility: hidden; }
     .dropdown.is-open .dropdown-menu { opacity: 1; visibility: visible; }
-    .terminal-btn { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
+    .terminal-btn { padding: 0.4rem 0.8rem; font-size: 0.85rem; height: auto; animation: none; }
   }
 </style>
 
 <script>
-  // Mobile dropdown
-  if (window.matchMedia("(max-width: 768px)").matches) {
-    const dropdown = document.querySelector('.dropdown');
-    const toggle = document.querySelector('.dropdown-toggle');
-    if (dropdown && toggle) {
-      toggle.addEventListener('click', (event) => {
-        event.stopPropagation();
-        dropdown.classList.toggle('is-open');
+  function setupHeader() {
+    // Mobile dropdown
+    if (window.matchMedia("(max-width: 768px)").matches) {
+      const dropdown = document.querySelector('.dropdown');
+      const toggle = document.querySelector('.dropdown-toggle');
+      if (dropdown && toggle) {
+        toggle.addEventListener('click', (event) => {
+          event.stopPropagation();
+          dropdown.classList.toggle('is-open');
+        });
+        document.addEventListener('click', () => {
+          if (dropdown.classList.contains('is-open')) {
+            dropdown.classList.remove('is-open');
+          }
+        });
+      }
+    }
+
+    // Terminal toggle
+    const headerToggle = document.getElementById('header-terminal-toggle');
+    headerToggle?.addEventListener('click', () => {
+      document.body.classList.toggle('terminal-mode');
+      document.getElementById('terminal-input')?.focus();
+    });
+
+    // Scroll pill logic
+    if (!window.headerScrollListenerAdded) {
+      let lastScroll = 0;
+      window.addEventListener('scroll', () => {
+        const fullNav = document.getElementById('full-nav');
+        const pill = document.getElementById('header-pill');
+        if (!fullNav || !pill) return;
+
+        const currentScroll = window.scrollY;
+        if (currentScroll > 100 && currentScroll > lastScroll) {
+          // scrolling down -> show pill
+          fullNav.style.opacity = '0';
+          pill.style.opacity = '1';
+          pill.style.pointerEvents = 'auto';
+        } else if (currentScroll < lastScroll) {
+          // scrolling up -> show full nav
+          fullNav.style.opacity = '1';
+          pill.style.opacity = '0';
+          pill.style.pointerEvents = 'none';
+        }
+        lastScroll = currentScroll <= 0 ? 0 : currentScroll;
       });
-      document.addEventListener('click', () => {
-        if (dropdown.classList.contains('is-open')) dropdown.classList.remove('is-open');
-      });
+      window.headerScrollListenerAdded = true;
     }
   }
 
-  // Terminal toggle
-  const headerToggle = document.getElementById('header-terminal-toggle');
-  headerToggle?.addEventListener('click', () => {
-    document.body.classList.toggle('terminal-mode');
-    document.getElementById('terminal-input')?.focus();
-  });
-
-  // Scroll pill logic
-  const fullNav = document.getElementById('full-nav');
-  const pill = document.getElementById('header-pill');
-  let lastScroll = 0;
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    if (currentScroll > 100 && currentScroll > lastScroll) {
-      // scrolling down -> show pill
-      fullNav.style.opacity = '0';
-      pill.style.opacity = '1';
-      pill.style.pointerEvents = 'auto';
-    } else if (currentScroll < lastScroll) {
-      // scrolling up -> show full nav
-      fullNav.style.opacity = '1';
-      pill.style.opacity = '0';
-      pill.style.pointerEvents = 'none';
-    }
-    lastScroll = currentScroll;
+  document.addEventListener('astro:page-load', () => {
+    // This pushes the setup function to the end of the browser's execution queue,
+    // ensuring the DOM is fully ready before the script runs. This is a robust
+    // fix for race conditions on initial page load.
+    setTimeout(setupHeader, 0);
   });
 </script>
