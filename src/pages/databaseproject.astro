@@ -1,0 +1,189 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+// Frontmatter for this specific project page
+const frontmatter = {
+  title: "Prestige Rentals: A Secure Full-Stack Application",
+  description: "An analysis of the secure architecture and defensive design behind a full-stack car rental system.",
+  pubDate: "October 27, 2025"
+};
+---
+
+<MainLayout title={frontmatter.title} description={frontmatter.description}>
+  <article class="post-content">
+
+    <header class="post-header bubble">
+      <h1>{frontmatter.title}</h1>
+      <p class="post-date">{frontmatter.pubDate}</p>
+    </header>
+
+    <section class="bubble" data-aos="fade-up">
+      <h2>Project Overview</h2>
+      <p>
+        <strong>Prestige Rentals</strong> is a full-stack car rental web application that I designed and developed from the ground up. My primary objective was not only to create a functional platform but to architect it with <strong>security and resilience</strong> as core design principles. As a cybersecurity student, I approached this project as both a software engineer and a security analyst—prioritizing safe coding practices across every layer, from the database schema to the client-side logic.
+      </p>
+      <p>
+        The platform serves two distinct roles: <strong>Customers</strong>, who can browse, rent, and review vehicles, and <strong>Administrators</strong>, who oversee fleet management, user accounts, and rental activity. Supporting these roles required a well-defined system for authentication, authorization, and data protection.
+      </p>
+    </section>
+
+    <section class="bubble" data-aos="fade-up">
+      <h2>How It Works: Core Functionality</h2>
+      <p>
+        The application is powered by a modular <strong>React (JSX) front end</strong> that communicates with a custom <strong>Node.js (Express)</strong> backend API and a <strong>MySQL database</strong> as the persistent data store.
+      </p>
+
+      <h3>The Customer Experience</h3>
+      <p>
+        Guests can explore the car catalog and apply filters to refine their search. To rent or interact with listings, users must first create an account. Once authenticated, they gain access to several key features:
+      </p>
+      <ul>
+        <li><strong>Dashboard:</strong> A personalized dashboard for managing user profiles, saved vehicles, rental history, and payment options.</li>
+        <li><strong>Rental Flow:</strong> A guided multi-step rental process that includes date selection, terms of service acknowledgment, optional add-ons, and payment confirmation.</li>
+        <li><strong>Reviews:</strong> Verified renters can submit one review per vehicle and have full control to edit or delete their own feedback.</li>
+      </ul>
+
+      <h3>The Admin Panel</h3>
+      <p>
+        Administrators access a dedicated portal that grants elevated privileges through role-based API tokens. From here, staff can:
+      </p>
+      <ul>
+        <li>Perform full <strong>CRUD (Create, Read, Update, Delete)</strong> operations on vehicle listings, customer records, and employee accounts.</li>
+        <li>Manage maintenance schedules and monitor system-wide rental metrics.</li>
+      </ul>
+    </section>
+
+    <section class="bubble" data-aos="fade-up">
+      <h2>Cybersecurity Implementation: A Defensive Deep Dive</h2>
+      <p>
+        Security was the guiding principle behind every architectural decision. Drawing from my coursework and practical labs, I implemented multiple layers of defense to mitigate common web application vulnerabilities.
+      </p>
+
+      <h3>1. Authentication & Session Management</h3>
+      <ul>
+        <li><strong>Password Hashing:</strong> User passwords are never stored in plaintext. Using <code>bcrypt</code>, each password is hashed with a unique salt to defend against rainbow table and dictionary attacks.</li>
+        <li><strong>JSON Web Tokens (JWT):</strong> Upon successful login, the server issues a signed, stateless JWT containing the user’s ID and role. This token is stored in <code>sessionStorage</code> and attached to all subsequent requests via the <code>Authorization</code> header.</li>
+      </ul>
+
+      <h3>2. Authorization & Access Control</h3>
+      <p>
+        Authentication verifies identity, but authorization enforces boundaries. I implemented <strong>Role-Based Access Control (RBAC)</strong> using Express middleware.
+      </p>
+      <ul>
+        <li><strong>Middleware Validation:</strong> Two custom middleware functions—<code>authenticateCustomer</code> and <code>authenticateAdmin</code>—validate JWTs and confirm user roles before granting access.</li>
+        <li><strong>Route Protection:</strong> Administrative routes (e.g., <code>/api/admin/cars</code>) are restricted to valid admin tokens. Any unauthorized request receives an immediate <code>403 Forbidden</code> response.</li>
+      </ul>
+
+      <h3>3. Mitigating Common Vulnerabilities</h3>
+      <ul>
+        <li><strong>SQL Injection:</strong> All database queries use <code>mysql2/promise</code> with parameterized queries, ensuring user input is treated strictly as data and not executable SQL code.</li>
+        <li><strong>Brute-Force Protection:</strong> The authentication endpoints employ <code>express-rate-limit</code> to throttle repeated failed login attempts, mitigating automated password guessing attacks.</li>
+        <li><strong>HTTP Header Hardening:</strong> <code>helmet.js</code> is configured to enforce headers like <code>Strict-Transport-Security</code>, <code>X-Frame-Options</code>, and <code>X-Content-Type-Options</code>, reducing exposure to clickjacking and MIME-sniffing exploits.</li>
+        <li><strong>Cross-Origin Resource Sharing (CORS):</strong> The backend only accepts requests from whitelisted origins, preventing malicious cross-domain API calls.</li>
+      </ul>
+
+      <h3>4. Secure API & Data Handling</h3>
+      <ul>
+        <li><strong>Data Ownership Verification:</strong> Before performing destructive actions (e.g., deleting reviews or payment methods), the backend validates ownership by matching the resource’s user ID against the ID from the verified JWT.</li>
+        <li><strong>Response Sanitization:</strong> All user-facing responses are scrubbed of sensitive data such as password hashes and tokens before being returned to the client.</li>
+      </ul>
+    </section>
+
+    <section class="bubble" data-aos="fade-up">
+      <h2>Technology Stack</h2>
+      <ul>
+        <li><strong>Frontend:</strong> React (JSX), Astro, Tailwind CSS, Framer Motion</li>
+        <li><strong>Backend:</strong> Node.js, Express.js</li>
+        <li><strong>Database:</strong> MySQL with <code>mysql2/promise</code></li>
+        <li><strong>Security & Auth:</strong> JSON Web Tokens (JWT), <code>bcrypt</code>, <code>helmet.js</code>, <code>express-rate-limit</code>, <code>cors</code></li>
+      </ul>
+    </section>
+
+    <section class="bubble" data-aos="fade-up">
+      <h2>What I Learned</h2>
+      <p>
+        Developing Prestige Rentals was an opportunity to bridge theory and practice in secure software design. Concepts like SQL injection, rate limiting, and RBAC moved from abstract lessons to real-world implementations that I could test and validate.
+      </p>
+      <p>
+        This project reinforced the mindset of building defensively—never trusting client input, always validating on the server, and designing APIs to minimize exposure. It deepened my understanding of how security is not a single feature, but a process integrated throughout the software lifecycle.
+      </p>
+    </section>
+
+  </article>
+</MainLayout>
+
+<style>
+.post-content {
+  max-width: 900px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.bubble {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  line-height: 1.7;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.post-header h1 {
+  color: var(--accent-color);
+  font-size: 2.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.post-date {
+  font-size: 0.9rem;
+  color: #aab2bb;
+}
+
+h2 {
+  color: var(--accent-color);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-color-light); /* A slightly lighter text color */
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.25rem;
+}
+
+p, ul {
+  color: var(--text-color);
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+ul {
+  list-style-position: inside;
+  list-style-type: disc;
+  padding-left: 1rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .post-content {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .bubble {
+    padding: 1.5rem;
+  }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.4rem; }
+  h3 { font-size: 1.2rem; }
+}
+</style>

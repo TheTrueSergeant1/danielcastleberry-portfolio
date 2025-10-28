@@ -16,7 +16,7 @@
         </ul>
       </li>
       <li><a href="/projects" data-astro-prefetch>Projects</a></li>
-      <li><a href="/blog" data-astro-prefetch>Blog</a></li>
+      
       <li>
         <button id="header-terminal-toggle" class="terminal-btn">Terminal</button>
       </li>
@@ -181,6 +181,9 @@
 </style>
 
 <script>
+  // Define the flag here, in the script's module scope
+  let headerScrollListenerAdded = false;
+
   function setupHeader() {
     // Mobile dropdown
     if (window.matchMedia("(max-width: 768px)").matches) {
@@ -207,7 +210,8 @@
     });
 
     // Scroll pill logic
-    if (!window.headerScrollListenerAdded) {
+    // Check the local flag instead of the window object
+    if (!headerScrollListenerAdded) {
       let lastScroll = 0;
       window.addEventListener('scroll', () => {
         const fullNav = document.getElementById('full-nav');
@@ -228,14 +232,15 @@
         }
         lastScroll = currentScroll <= 0 ? 0 : currentScroll;
       });
-      window.headerScrollListenerAdded = true;
+      
+      // Set the local flag to true
+      headerScrollListenerAdded = true;
     }
   }
 
   document.addEventListener('astro:page-load', () => {
-    // This pushes the setup function to the end of the browser's execution queue,
-    // ensuring the DOM is fully ready before the script runs. This is a robust
-    // fix for race conditions on initial page load.
+    // The setTimeout is likely unnecessary, but I'll leave it
+    // as it doesn't hurt anything.
     setTimeout(setupHeader, 0);
   });
 </script>

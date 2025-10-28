@@ -1,5 +1,3 @@
----
----
 <div id="terminal-component">
   <div class="terminal-body" id="terminal-body">
     <div id="terminal-output"></div>
@@ -71,44 +69,25 @@ body.terminal-mode #terminal-component { display: flex; }
 </style>
 
 <script>
-// --- Terminal Initialization Function ---
-// I had to wrap all my terminal code in this function because of Astro's View Transitions.
-// When I navigate to a new page, the old script stops working. This function lets me
-// re-initialize everything so the terminal works on every page.
 function initializeTerminal() {
-
-  // --- DOM Element Selectors ---
-  // Grabbing the HTML elements I need to interact with.
   const terminalBody = document.getElementById('terminal-body');
   const output = document.getElementById('terminal-output');
   const input = document.getElementById('terminal-input');
 
-  // --- Safety Check ---
-  // If the terminal input element doesn't exist, or if I've already initialized it,
-  // then just stop. This prevents errors if the component isn't on the page, and
-  // it stops me from adding the same event listener multiple times.
-  if (!input || input.dataset.initialized) {
-    return;
-  }
-  // I'm setting a 'data-initialized' attribute on the input element itself.
-  // This is like leaving a little flag that says "I've already run the setup script for this element."
+  if (!input || !output || !terminalBody || input.dataset.initialized) return;
   input.dataset.initialized = 'true';
 
-  // --- Page Routes for 'go' command ---
-  // A simple object to map the command argument (e.g., 'about') to the actual URL ('/about').
+  // --- Routes (no blog) ---
   const pages = {
     about: '/about',
     skills: '/skills',
     experience: '/experience',
     homelab: '/homelab',
     certifications: '/certifications',
-    projects: '/projects',
-    blog: '/blog'
+    projects: '/projects'
   };
 
-  // --- Virtual File Content for 'cat' command ---
-  // This acts as a mini-database. When the user runs 'cat about', the terminal looks
-  // here for the 'about' key and prints the text content.
+  // --- Virtual Files (blog removed) ---
   const pageContent = {
     about: `Daniel Castleberry - About Me
 I am a proactive Junior Cybersecurity student with hands-on 
@@ -118,9 +97,9 @@ technical skills and a diligent work ethic.
 -Learn more in the graphical portion of the site!`,
     skills: `Technical Skills Overview
 - Operating Systems: Linux, Windows, Virtual Machines
-- Security Tools: Insight IDR (Rapid 7), ServiceNow, ZScaler, Trend Micro Suite, Mimecast
+- Security Tools: Insight IDR (Rapid7), ServiceNow, ZScaler, Trend Micro Suite, Mimecast
 - Security Concepts: Threat Detection, Digital Forensics, Cryptography, Networking (CCNA Knowledge)
-- Programming & Web: C++, Java, HTML, CSS, Javascript(basic)`,
+- Programming & Web: C++, Java, HTML, CSS, JavaScript (basic)`,
     experience: `Experience Summary
 - Cybersecurity Intern at US Silica (Summer 2023)
 --------------------------------------------------
@@ -141,7 +120,7 @@ technical skills and a diligent work ethic.
 
 -Learn more and see diagrams in the graphical portion of the site!`,
     certifications: `Certifications Overview
-              IN PROGRESS
+                IN PROGRESS
   ===========================
 - CompTIA Security+ (2024)
 - Cisco CCNA (2023)
@@ -150,14 +129,10 @@ technical skills and a diligent work ethic.
 -See the roadmap in the graphical portion of the site!`,
     projects: `Projects Summary
 - Personal Portfolio Website (Astro)
-- Cybersecurity Homelab`,
-    blog: `Blog Summary
-- Nothing here yet...`
+- Cybersecurity Homelab`
   };
 
-  // --- Command Definitions ---
-  // This is the core logic. It's an object where each key is a command name
-  // and each value is the function that gets executed for that command.
+  // --- Commands ---
   const commands = {
     whoami: () => `<span class="terminal-success">Daniel Castleberry - Cybersecurity Student</span>`,
     date: () => `<span class="terminal-success">${new Date().toString()}</span>`,
@@ -186,7 +161,7 @@ technical skills and a diligent work ethic.
         ['gui', 'Return to GUI view'],
         ['clear', 'Clear the terminal screen'],
         ['echo [text]', 'Print the text you type'],
-        ['random [min] [max]', 'Generate a random number between min and max'],
+        ['random [min] [max]', 'Generate a random number'],
         ['fortune', 'Get a motivational quote'],
         ['joke', 'Get a cybersecurity joke'],
         ['projects', 'Quick overview of projects'],
@@ -240,11 +215,11 @@ technical skills and a diligent work ethic.
     social: () => `<span class="terminal-success">GitHub: <a href="https://github.com/dcastleberry" target="_blank">dcastleberry</a>\nLinkedIn: <a href="https://linkedin.com/in/dcastleberry" target="_blank">Daniel Castleberry</a></span>`
   };
 
-  // --- State Management for Command History ---
+  // --- Command History ---
   let history = [];
   let historyIndex = -1;
 
-  // --- Helper Functions ---
+  // --- Output Helper ---
   function appendOutput(html) {
     const lines = html.split('\n');
     lines.forEach(line => {
@@ -253,15 +228,16 @@ technical skills and a diligent work ethic.
       div.innerHTML = line;
       output.appendChild(div);
     });
-    if(terminalBody) terminalBody.scrollTop = terminalBody.scrollHeight;
+    if (terminalBody) terminalBody.scrollTop = terminalBody.scrollHeight;
   }
 
+  // --- Autocomplete ---
   function autocomplete(value) {
     const available = [...Object.keys(commands), ...Object.keys(pageContent)];
     return available.filter(cmd => cmd.startsWith(value));
   }
 
-  // --- Main Input Event Listener ---
+  // --- Keyboard Input ---
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -290,16 +266,10 @@ technical skills and a diligent work ethic.
       const value = input.value.trim();
       const matches = autocomplete(value);
       if (matches.length === 1) input.value = matches[0] + ' ';
-      else if (matches.length > 1) appendOutput(matches.join('   '));
+      else if (matches.length > 1) appendOutput(matches.join('  ')); // Use regular spaces
     }
   });
 }
 
-// --- Script Execution ---
-document.addEventListener('astro:page-load', () => {
-  // This pushes the setup function to the end of the browser's execution queue,
-  // ensuring the DOM is fully ready before the script runs. This is a robust
-  // fix for race conditions on initial page load.
-  setTimeout(initializeTerminal, 0);
-});
+document.addEventListener('astro:page-load', () => setTimeout(initializeTerminal, 0));
 </script>
