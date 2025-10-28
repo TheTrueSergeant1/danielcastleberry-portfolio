@@ -54,6 +54,258 @@ const frontmatter = {
     </section>
 
     <section class="bubble" data-aos="fade-up">
+    <h2>Database Features</h2>
+    <p>
+      The Prestige Rentals backend is designed with robust, secure, and highly functional features that support both business logic and cybersecurity best practices. Key capabilities of the system include:
+    </p>
+
+    <h3>Security & Server Setup</h3>
+    <ul>
+      <li>Secure HTTP Headers using <code>helmet</code>.</li>
+      <li>CORS restricted to specific origins.</li>
+      <li>Environment variables for sensitive data management.</li>
+      <li>Rate limiting for login, registration, and password reset endpoints.</li>
+      <li>Connection pooling to MySQL via <code>mysql2/promise</code>.</li>
+    </ul>
+
+    <h3>User & Employee Authentication</h3>
+    <ul>
+      <li>Employee and customer login endpoints.</li>
+      <li>Customer registration with duplicate email checks.</li>
+      <li>Password hashing using <code>bcrypt</code>.</li>
+      <li>Password reset system using secure, expiring tokens.</li>
+      <li>JWT-based authentication for admin and customer roles.</li>
+      <li>Optional authentication for customizing public data access.</li>
+    </ul>
+
+    <h3>Public Data & Car Browsing</h3>
+    <ul>
+      <li>Endpoints for featured cars and testimonials.</li>
+      <li>Listing of car types, features, and rental add-ons.</li>
+      <li>Filter and search cars with type, make/model, and average rating.</li>
+      <li>Fetch complete car details and reviews, including user-specific flags.</li>
+    </ul>
+
+    <h3>Customer Profile & Management (Authenticated)</h3>
+    <ul>
+      <li>View and update customer profile and password.</li>
+      <li>Manage payment methods (add, list, delete) with ownership checks.</li>
+      <li>Manage favorites (add, list, remove).</li>
+      <li>Review system with eligibility checks and CRUD operations.</li>
+      <li>Access to active and past rental history.</li>
+    </ul>
+
+    <h3>Rental Workflow (Authenticated)</h3>
+    <ul>
+      <li>Create rentals using database transactions for atomic operations.</li>
+      <li>Calculate total cost including add-ons and duration.</li>
+      <li>Return rentals safely with status updates and optional fees.</li>
+      <li>Delete completed rentals along with associated payments and add-ons.</li>
+    </ul>
+
+    <h3>Admin Panel (Authenticated)</h3>
+    <ul>
+      <li>Dashboard metrics: car availability, revenue, and popular car types.</li>
+      <li>CRUD operations for cars, employees, and customers.</li>
+      <li>Maintenance management: schedule, complete, update costs, and history tracking.</li>
+      <li>Force-return rentals and manage active maintenance records.</li>
+    </ul>
+  </section>
+
+    <section class="bubble" data-aos="fade-up">
+  <h2>Database & Backend Deep Dive</h2>
+  <p>
+    The backend of Prestige Rentals is designed around a <strong>relational MySQL database</strong>, which serves as the backbone for all persistent data. Every piece of data—from vehicle information to customer profiles—is stored in structured tables with clear relationships, allowing for consistent, safe, and efficient queries. Let’s break down the architecture and implementation.
+  </p>
+
+  <h3>1. Database Schema & Table Design</h3>
+  <p>
+    The schema models real-world entities, ensuring clarity and maintainability:
+  </p>
+  <ul>
+    <li><strong>Customers:</strong> Stores essential user information including <code>customer_id</code>, <code>name</code>, <code>email</code>, <code>hashed_password</code>, <code>role</code>, and account status. Passwords are hashed using <code>bcrypt</code> before being stored to prevent compromise.</li>
+    <li><strong>Cars:</strong> Maintains details about each vehicle, including <code>car_id</code>, <code>make</code>, <code>model</code>, <code>year</code>, <code>license_plate</code>, <code>availability_status</code>, and optional maintenance schedules.</li>
+    <li><strong>Rentals:</strong> Maps customers to vehicles with <code>rental_id</code>, <code>customer_id</code>, <code>car_id</code>, <code>start_date</code>, <code>end_date</code>, <code>status</code>, and <code>total_price</code>.</li>
+    <li><strong>Payments:</strong> Tracks payment transactions per rental, storing <code>payment_id</code>, <code>rental_id</code>, <code>amount</code>, <code>payment_method</code>, <code>timestamp</code>, and <code>status</code>.</li>
+    <li><strong>Reviews:</strong> Connects customers to vehicles they’ve rented, with <code>review_id</code>, <code>customer_id</code>, <code>car_id</code>, <code>rating</code>, <code>comment</code>, and <code>created_at</code>. Each customer may submit only one review per vehicle.</li>
+  </ul>
+
+  <h3>2. Relationships & Referential Integrity</h3>
+  <p>
+    Proper relational mapping ensures data consistency:
+  </p>
+  <ul>
+    <li><code>Rentals.customer_id → Customers.customer_id</code> (foreign key constraint enforces that every rental belongs to a valid customer).</li>
+    <li><code>Rentals.car_id → Cars.car_id</code> (a rental must reference an existing car).</li>
+    <li><code>Payments.rental_id → Rentals.rental_id</code> (payments are always linked to rentals).</li>
+    <li><code>Reviews.customer_id → Customers.customer_id</code> and <code>Reviews.car_id → Cars.car_id</code> (reviews must belong to valid customers and cars).</li>
+  </ul>
+  <p>
+    Using foreign keys enforces referential integrity, preventing orphaned records. Cascading rules, such as <code>ON DELETE CASCADE</code> for rentals and reviews, ensure that when a customer or vehicle is removed, related records are automatically cleaned up.
+  </p>
+
+  <h3>3. Indexing & Query Optimization</h3>
+  <p>
+    To support fast lookups and complex joins, I implemented indexing strategies:
+  </p>
+  <ul>
+    <li>Primary keys automatically create unique indexes on <code>customer_id</code>, <code>car_id</code>, <code>rental_id</code>, etc.</li>
+    <li>Secondary indexes on <code>email</code>, <code>license_plate</code>, and <code>start_date/end_date</code> optimize search queries and filter operations.</li>
+    <li>Composite indexes on <code>customer_id, car_id</code> in <code>Rentals</code> improve performance for queries like "all rentals for a given customer" or "all rentals of a specific car."</li>
+  </ul>
+
+  <h3>4. SQL Queries & Parameterization</h3>
+  <p>
+    All SQL queries are implemented using <code>mysql2/promise</code> with parameterized statements to prevent SQL injection. Examples:
+  </p>
+  <ul>
+    <li>
+      <strong>Retrieve active rentals for a customer:</strong>
+      <pre><code>SELECT r.rental_id, c.make, c.model, r.start_date, r.end_date
+FROM Rentals r
+JOIN Cars c ON r.car_id = c.car_id
+WHERE r.customer_id = ? AND r.status = 'active';</code></pre>
+    </li>
+    <li>
+      <strong>Create a new rental:</strong>
+      <pre><code>INSERT INTO Rentals (customer_id, car_id, start_date, end_date, total_price)
+VALUES (?, ?, ?, ?, ?);</code></pre>
+    </li>
+    <li>
+      <strong>Update vehicle availability after rental:</strong>
+      <pre><code>UPDATE Cars SET availability_status = 'unavailable' WHERE car_id = ?;</code></pre>
+    </li>
+  </ul>
+
+  <h3>5. Transactions & Data Consistency</h3>
+  <p>
+    For multi-step operations like rental creation and payment processing, I use database transactions to ensure atomicity. This guarantees that either all steps complete successfully or none are applied, preventing inconsistent states. Example flow:
+  </p>
+  <ol>
+    <li>Start transaction.</li>
+    <li>Insert rental record.</li>
+    <li>Insert payment record.</li>
+    <li>Update car availability.</li>
+    <li>Commit transaction if all succeed; otherwise, rollback.</li>
+  </ol>
+
+  <h3>6. Backend API & Integration</h3>
+  <p>
+    The backend exposes RESTful endpoints that abstract direct SQL operations, enforce validation, and provide secure data access:
+  </p>
+  <ul>
+    <li><code>POST /api/rentals</code> – Creates a new rental, validates car availability, and initiates a transaction for payment and availability updates.</li>
+    <li><code>GET /api/customers/:id/rentals</code> – Returns a customer’s rental history, joining <code>Rentals</code> with <code>Cars</code> for readable output.</li>
+    <li><code>GET /api/admin/cars</code> – Provides admin-only vehicle management data, enforcing RBAC via middleware.</li>
+    <li><code>POST /api/reviews</code> – Adds a review after verifying rental ownership, ensuring only verified customers can submit feedback.</li>
+  </ul>
+
+  <h3>7. Data Security & Privacy</h3>
+  <p>
+    Beyond SQL injection prevention, sensitive data such as passwords and payment information are never returned to the client. Query results are sanitized, and all data mutations are logged for auditing. User access is strictly controlled using JWTs and role-based middleware.
+  </p>
+
+  <p>
+    This backend architecture provides a robust, secure, and scalable foundation for the rental website, supporting both business logic and cybersecurity best practices.
+  </p>
+</section>
+
+<section class="bubble" data-aos="fade-up">
+  <h2>Entity-Relationship (ER) Diagram</h2>
+  <p>
+    Below is a textual representation of the database schema in ER diagram format, detailing entities, weak entities, and relationships used in Prestige Rentals.
+  </p>
+
+  <h3>Entities (Strong Entities)</h3>
+  <ul>
+    <li><strong>Customers</strong>
+      <ul>
+        <li>Attributes: <u>customer_id</u> (PK), first_name, last_name, email, phone_number, address, city, state, zip_code, date_of_birth, password, reset_token, reset_token_expires</li>
+      </ul>
+    </li>
+    <li><strong>Cars</strong>
+      <ul>
+        <li>Attributes: <u>car_id</u> (PK), make, model, year, license_plate, daily_rate, status, image_url, mileage, next_service_due_date, next_service_details, purchase_date, previous_owners, car_type_id (FK), location_id (FK)</li>
+      </ul>
+    </li>
+    <li><strong>Employees</strong>
+      <ul>
+        <li>Attributes: <u>employee_id</u> (PK), first_name, last_name, job_title, hire_date, email, username, password</li>
+      </ul>
+    </li>
+    <li><strong>Rentals</strong>
+      <ul>
+        <li>Attributes: <u>rental_id</u> (PK), customer_id (FK), car_id (FK), pickup_date, due_date, return_date, total_cost, late_fee</li>
+      </ul>
+    </li>
+    <li><strong>Car_Types</strong>
+      <ul>
+        <li>Attributes: <u>car_type_id</u> (PK), type_name</li>
+      </ul>
+    </li>
+    <li><strong>Locations</strong>
+      <ul>
+        <li>Attributes: <u>location_id</u> (PK), name, address</li>
+      </ul>
+    </li>
+    <li><strong>Addons</strong>
+      <ul>
+        <li>Attributes: <u>addon_id</u> (PK), name, description, price</li>
+      </ul>
+    </li>
+    <li><strong>Features</strong>
+      <ul>
+        <li>Attributes: <u>feature_id</u> (PK), name</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>Weak Entities</h3>
+  <ul>
+    <li><strong>Payments</strong> – existence dependent on Rentals
+      <ul>
+        <li>Attributes: <u>payment_id</u> (PK), rental_id (FK), amount, payment_date, payment_method</li>
+      </ul>
+    </li>
+    <li><strong>Maintenance</strong> – existence dependent on Cars
+      <ul>
+        <li>Attributes: <u>maintenance_id</u> (PK), car_id (FK), service_date, service_type, cost, notes, completion_date</li>
+      </ul>
+    </li>
+    <li><strong>CustomerPaymentMethods</strong> – existence dependent on Customers
+      <ul>
+        <li>Attributes: <u>payment_method_id</u> (PK), customer_id (FK), card_holder_name, card_type, masked_number, expiry_date, is_primary</li>
+      </ul>
+    </li>
+    <li><strong>Reviews</strong> – existence dependent on Customers and Cars
+      <ul>
+        <li>Attributes: <u>review_id</u> (PK), car_id (FK), customer_id (FK), rating, review_text, review_date</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>Relationships</h3>
+  <ul>
+    <li><strong>books</strong> – connects Customers to Rentals (1:N)</li>
+    <li><strong>is_for</strong> – connects Rentals to Cars (N:1)</li>
+    <li><strong>is_type_of</strong> – connects Cars to Car_Types (N:1)</li>
+    <li><strong>is_parked_at</strong> – connects Cars to Locations (N:1)</li>
+    <li><strong>favorites</strong> – connects Customers to Cars (N:M)</li>
+    <li><strong>has_features</strong> – connects Cars to Features (N:M)</li>
+    <li><strong>includes_addons</strong> – connects Rentals to Addons (N:M)</li>
+  </ul>
+
+  <h3>Identifying Relationships (for Weak Entities)</h3>
+  <ul>
+    <li><strong>generates</strong> – Rentals to Payments (1:N)</li>
+    <li><strong>undergoes</strong> – Cars to Maintenance (1:N)</li>
+    <li><strong>has_method</strong> – Customers to CustomerPaymentMethods (1:N)</li>
+    <li><strong>writes_review</strong> – Customers to Reviews (1:N)</li>
+    <li><strong>receives_review</strong> – Cars to Reviews (1:N)</li>
+  </ul>
+</section>
+
+    <section class="bubble" data-aos="fade-up">
       <h2>Cybersecurity Implementation: A Defensive Deep Dive</h2>
       <p>
         Security was the guiding principle behind every architectural decision. Drawing from my coursework and practical labs, I implemented multiple layers of defense to mitigate common web application vulnerabilities.
@@ -151,7 +403,7 @@ h2 {
 h3 {
   font-size: 1.4rem;
   font-weight: 600;
-  color: var(--text-color-light); /* A slightly lighter text color */
+  color: var(--text-color-light);
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
   border-bottom: 1px solid var(--border-color);
