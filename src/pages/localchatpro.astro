@@ -1,0 +1,191 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const frontmatter = {
+  title: "LocalChat Pro: A Secure Real-Time Communication Platform",
+  description: "An in-depth write-up detailing the architecture, security controls, and feature set of a full-stack, enterprise-grade WebSocket chat application.",
+  pubDate: "November 6, 2025"
+};
+---
+
+<MainLayout title={frontmatter.title} description={frontmatter.description}>
+  <article class="post-content">
+
+    <header class="post-header bubble">
+      <h1>{frontmatter.title}</h1>
+      <p class="post-date">{frontmatter.pubDate}</p>
+    </header>
+
+    <section class="bubble">
+      <p>
+        This project, LocalChat Pro: Enterprise Edition, is a fully functional, real-time communication platform designed to demonstrate proficiency across the full stack—from secure data modeling in the database to asynchronous event handling at the application layer. The core focus was engineering a robust, Node.js/WebSocket server capable of handling high-fidelity, persistent messaging while implementing critical security controls and moderation features essential for any enterprise environment.
+      </p>
+    </section>
+
+    <section class="bubble">
+      <h2>Architectural Deep Dive</h2>
+
+      <h3>1. Tech Stack and Data Integrity</h3>
+      <p>
+        The application uses a standard, yet powerful, stack: Node.js/Express for the application server, MySQL for data persistence, and pure WebSockets for bidirectional communication. Database integrity is enforced using foreign keys with strict constraints (e.g., ON DELETE CASCADE for messages/reactions) to prevent orphaned records. Critical user credentials employ a secure hashing mechanism (PBKDF2) to protect against compromise.
+      </p>
+      <ul class="inline-list">
+        <li>Backend: Node.js, Express, WebSocket (`ws`)</li>
+        <li>Database: MySQL with `mysql2/promise`</li>
+        <li>Authentication: PBKDF2 Password Hashing</li>
+        <li>Frontend: HTML/Tailwind/Vanilla JS for low overhead</li>
+      </ul>
+
+      <h3>2. Dual-Layer Communication Protocol</h3>
+      <p>
+        Communication is split between two distinct layers for security and reliability:
+      </p>
+      <ul class="inline-list">
+        <li>HTTP (REST API): Handles non-real-time, high-integrity tasks like user registration, login, and file uploads. This allows the use of established security patterns and middleware (like Multer for file integrity checking).</li>
+        <li>WebSockets: Manages all real-time events (message transmission, typing indicators, presence, reactions). A successful HTTP login is required before initiating the authenticated WebSocket connection.</li>
+      </ul>
+    </section>
+
+    <section class="bubble">
+      <h2>Security and Moderation Controls</h2>
+      <p>
+        Implementing a comprehensive set of security and moderation features was paramount to simulate a production environment compliant with enterprise standards.
+      </p>
+      <h3>1. Role-Based Access Control (RBAC)</h3>
+      <p>
+        The server assigns users roles (User, Moderator, Admin) and enforces privileges server-side. High-privilege commands (like <code>/pin</code>, <code>/kick</code>, and <code>/ban</code>) are validated against the user's role hierarchy in the backend before execution.
+      </p>
+      <h3>2. File Upload Security</h3>
+      <p>
+        File uploads are protected by mime-type whitelisting (restricting files to images, PDF, and plain text) and enforced size limits (5MB) to mitigate risks like malformed content injection and storage exhaustion. Files are stored with secure, randomized filenames to prevent directory traversal and overwrite attacks.
+      </p>
+      <h3>3. Content Sanitization and Persistence</h3>
+      <ul class="inline-list">
+        <li>Cross-Site Scripting (XSS) Prevention: All message content is run through the powerful DOMPurify library on the client-side upon rendering and is stored raw but filtered from input on the server, ensuring all Markdown rendering is safe.</li>
+        <li>Audit Logging (`audit_logs`): A robust table exists to log every critical action, including user bans and message deletions, providing an immutable record for forensic investigation and compliance.</li>
+      </ul>
+    </section>
+
+    <section class="bubble">
+      <h2>Advanced Messaging Features</h2>
+
+      <h3>1. Threading and Message Editing TTL</h3>
+      <p>
+        The messaging table (`messages`) includes the <code>parent_message_id</code> column, creating a canonical thread structure maintained by foreign key references. Furthermore, users can only edit their own messages within a configurable Time-To-Live (TTL) window (24 hours), enhancing data reliability and message integrity after the fact.
+      </p>
+      <h3>2. Channel Creation and Ownership</h3>
+      <p>
+        Users can create public or private channels. Private channels generate unique invite codes and require membership for access. The recent implementation of channel deletion is restricted strictly to the channel's creator or an Admin, enforcing clear data ownership boundaries.
+      </p>
+    </section>
+
+    <section class="bubble">
+      <h2>Feature Roadmap & Schema Utilization</h2>
+      <p>
+        The current database schema is forward-compatible and supports several key features that are pending full application logic implementation.
+      </p>
+      <ul class="inline-list">
+        <li>Granular Channel Permissions (`channel_permissions`): The model exists to implement fine-grained RBAC controls (e.g., who can send messages, who can pin) on a per-channel basis, moving beyond simple global roles.</li>
+        <li>Message Search (`FULLTEXT INDEX`): The database is indexed to enable rapid, server-side full-text search across all message content.</li>
+        <li>Read Receipts (`read_receipts`): This table is designed to track each user's last read message per channel, a foundational feature for durability and presence across sessions.</li>
+      </ul>
+    </section>
+
+    <section class="bubble">
+      <h2>Conclusion</h2>
+      <p>
+        LocalChat Pro stands as a comprehensive demonstration of my ability to architect, develop, and secure a complex, real-time web service. The project successfully integrates asynchronous messaging with robust database persistence and enterprise-level moderation features, underscoring my readiness to tackle challenging development and security roles.
+      </p>
+    </section>
+
+  </article>
+</MainLayout>
+
+<style>
+.post-content {
+  max-width: 900px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.bubble {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  line-height: 1.7;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.post-header h1 {
+  color: var(--accent-color);
+  font-size: 2.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.post-date {
+  font-size: 0.9rem;
+  color: #aab2bb;
+}
+
+h2 {
+  color: var(--accent-color);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  color: var(--text-color);
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+p, li {
+  color: var(--text-color);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.inline-list {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inline-list li::before {
+  content: "• ";
+  color: var(--accent-color);
+  display: inline-block;
+  width: 1em;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+code {
+  background-color: rgba(88, 166, 255, 0.1);
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', monospace;
+}
+
+@media (max-width: 768px) {
+  .post-content {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .bubble {
+    padding: 1.5rem;
+  }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.2rem; }
+}
+</style>
