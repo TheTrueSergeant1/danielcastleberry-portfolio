@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+/* Define your Cyber Theme directly in CSS (The modern v4 way) */
+@theme {
+  --font-sans: 'Inter', sans-serif;
+
+  --color-cyber-dark: #0a0a0a;
+  --color-cyber-card: #121212;
+  --color-cyber-border: #2a2a2a;
+  --color-cyber-accent: #00f0ff;
+  --color-cyber-glow: rgba(0, 240, 255, 0.15);
+  
+  /* Animations */
+  --animate-spin-slow:qn spin 3s linear infinite;
+}
+
+/* Global Styles */
+body {
+  background-color: var(--color-cyber-dark);
+  color: #ffffff;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cyber-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-cyber-accent);
+}
