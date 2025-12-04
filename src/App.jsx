@@ -386,7 +386,7 @@ const Home = () => (
         </div>
         <div className="relative animate-entry">
           <div className="absolute inset-0 bg-cyber-accent/30 blur-[120px] rounded-full animate-pulse-slow" />
-          <img src="../src/assets/headshot.png" alt="Profile" className="relative z-10 w-72 h-72 md:w-[500px] md:h-[500px] object-cover rounded-[3rem] border-2 border-white/10 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-700 ease-out" />
+          <img src="/headshot.png" alt="Profile" className="relative z-10 w-72 h-72 md:w-[500px] md:h-[500px] object-cover rounded-[3rem] border-2 border-white/10 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-700 ease-out" />
         </div>
       </section>
 
@@ -489,7 +489,7 @@ const HomelabPage = () => (
       <div className="grid md:grid-cols-3 gap-6">
         <div className="md:col-span-3 h-134 bg-[#050505] rounded-3xl border border-white/10 flex items-center justify-center relative overflow-hidden">
           <div className="absolute inset-0 bg-grid-white/[0.05]" />
-          <img src="../src/assets/homelab-diagram.jpeg" alt="Diagram" className="max-h-full opacity-70" />
+          <img src="/homelab-diagram.jpeg" alt="Diagram" className="max-h-full opacity-70" />
         </div>
         <BentoCard title="Infrastructure"><p>Managed Switch, VLANs, Pi-5 Pi-hole.</p></BentoCard>
         <BentoCard title="Analysis"><p>VMWare Workstation (Windows & Linux), Ida Pro, OllyDbg, Ghidra, PEView, Dependencies .</p></BentoCard>
