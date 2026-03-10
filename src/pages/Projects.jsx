@@ -56,6 +56,14 @@ const Projects = () => {
           tags={['React', 'GSAP', 'Tailwind v4']}
         />
 
+        {/* Secure Media Architecture */}
+        <ProjectCard 
+          title="Secure Persoanl Media Server"
+          date="Jan 2026"
+          desc="Self-hosted media streaming environment. Created with Zero Trust Network Access (ZTNA) via Tailscale, Docker containerization, and strict Role-Based Access Control."
+          tags={['Docker', 'Tailscale', 'Jellyfin', 'ZTNA']}
+        />
+
       </div>
     </div>
   );
