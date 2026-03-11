@@ -526,7 +526,7 @@ const CertificationsPage = () => (
 const ProjectsList = () => (
   <PageWrapper>
     <div className="pt-32 px-6 md:px-24 max-w-7xl mx-auto pb-24">
-      <SectionHeader title="Projects" subtitle="Building, breaking, and securing." />
+      <SectionHeader title="Projects" subtitle="My personal projects that I work on in my free time." />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <Link to="/projects/localchat" className="block h-full">
           <BentoCard title="LocalChat Pro" className="h-full hover:border-cyber-accent">
@@ -558,7 +558,7 @@ const ProjectsList = () => (
         </Link>
         {/* NEW MEDIA SERVER PROJECT CARD */}
         <Link to="/projects/media-server" className="block h-full">
-          <BentoCard title="Secure Media Architecture" className="h-full hover:border-cyber-accent">
+          <BentoCard title="Secure Media Server" className="h-full hover:border-cyber-accent">
             <div className="flex justify-between items-center mb-6"><Badge type="accent">Dec 2025</Badge><FiServer className="text-3xl text-neutral-500"/></div>
             <p className="text-lg mb-6">Self-hosted media environment with Zero Trust Network Access and strict service isolation.</p>
             <div className="flex flex-wrap gap-2"><Badge>Docker</Badge><Badge>Tailscale</Badge><Badge>ZTNA</Badge></div>
@@ -929,8 +929,8 @@ const ProjectMediaServer = () => (
       {/* --- OVERVIEW --- */}
       <BentoCard title="Project Overview" className="md:col-span-2">
         <p className="text-lg leading-relaxed text-neutral-300 mb-4">
-          Architected and deployed a comprehensive, self-hosted media streaming environment. While the primary use case is media delivery via Jellyfin, the core objective was to build a 
-          <strong className="text-white"> secure, remote-accessible infrastructure</strong> without exposing local networks to the public internet.
+          Created and deployed a comprehensive, self-hosted media streaming environment. While the primary use case is media delivery via Jellyfin, the core objective was to build a 
+          secure, remote-accessible server without exposing local networks to the public internet.
         </p>
         <p className="text-neutral-400">
           Built on a UGreen NAS with a 12TB storage array, the environment supports multiple concurrent users (family and friends) while adhering to strict security principles like service isolation and least-privilege access.
@@ -968,7 +968,7 @@ const ProjectMediaServer = () => (
             <div>
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><FiLayers /> Docker Architecture</h3>
                 <p className="text-sm text-neutral-400 mb-4">
-                    The entire application stack (Jellyfin, Sonarr, Radarr, Lidarr) is containerized. This provides strict service isolation and limits the potential blast radius if a single application vulnerability were to be exploited.
+                    The entire application stack (Jellyfin, Sonarr, Radarr, Lidarr) is containerized. This provides strict service isolation and limits the potential damage if a single application vulnerability were to be exploited.
                 </p>
             </div>
             <div>
