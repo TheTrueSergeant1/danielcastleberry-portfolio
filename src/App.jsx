@@ -398,8 +398,9 @@ const Home = () => (
 const Skills = () => (
   <PageWrapper>
     <div className="pt-32 px-6 md:px-24 max-w-7xl mx-auto pb-24">
+      {/* --- TECHNICAL SKILLS --- */}
       <SectionHeader title="Technical Skills" subtitle="Comprehensive overview of competencies." />
-      <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+      <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 mb-24">
         <BentoCard title="Security Tools" className="break-inside-avoid">
           <div className="mb-6 text-4xl text-cyber-accent"><FiShield /></div>
           <div className="flex flex-wrap gap-2">{['Insight IDR', 'ServiceNow', 'ZScaler', 'Trend Micro', 'Splunk', 'Wireshark', 'Metasploit', 'Nmap'].map(s => <Badge key={s}>{s}</Badge>)}</div>
@@ -420,6 +421,56 @@ const Skills = () => (
           <div className="mb-6 text-4xl text-white"><FiLayers /></div>
           <div className="flex flex-wrap gap-2">{['Git/GitHub', 'CI/CD', 'Secure API Design', 'Input Sanitization'].map(s => <Badge key={s}>{s}</Badge>)}</div>
         </BentoCard>
+      </div>
+
+      {/* --- ACADEMIC FOUNDATION --- */}
+      <SectionHeader title="Academic Foundation" subtitle="Relevant university coursework and future goals." />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        {/* Completed Coursework */}
+        <BentoCard title="Completed Coursework" className="h-full">
+          <div className="mb-6 text-4xl text-cyber-accent"><FiCheckCircle /></div>
+          <p className="text-sm text-neutral-400 mb-6">Foundational computer science and specialized cybersecurity curriculum completed to date.</p>
+          <div className="flex flex-wrap gap-2">
+            {[
+              'Cryptography & Network Security', 'Digital Forensics 1 & 2', 
+              'Data Structures & Algorithms', 'Discrete Mathematics', 
+              'Database Management & Design', 'Computer Networking', 
+              'Computer Architecture', 'Computer Org & Machine Language', 
+              'Java Programming 1 & 2', 'IT Professionalism & Ethics'
+            ].map(c => <Badge key={c}>{c}</Badge>)}
+          </div>
+        </BentoCard>
+
+        <div className="space-y-8 flex flex-col">
+          {/* Planned Coursework */}
+          <BentoCard title="Upcoming Coursework" className="flex-1">
+            <div className="mb-6 text-4xl text-white"><FiClock /></div>
+            <div className="flex flex-wrap gap-2">
+              {[
+                'Malware Forensics', 'Hardware Forensics', 
+                'Information Security', 'Software Engineering', 
+                'Data Mining', 'Human-Computer Interaction'
+              ].map(c => <Badge type="neutral" key={c}>{c}</Badge>)}
+            </div>
+          </BentoCard>
+
+          {/* Master's Goal */}
+          <BentoCard className="border-cyber-accent/30 bg-cyber-accent/5">
+            <div className="flex items-start gap-5">
+              <div className="p-4 bg-cyber-accent/10 border border-cyber-accent/20 rounded-2xl text-cyber-accent">
+                <FiTarget className="text-3xl" />
+              </div>
+              <div>
+                <h4 className="font-bold text-white text-xl mb-1">M.S. Information Assurance & Cybersecurity</h4>
+                <p className="text-sm text-neutral-300 leading-relaxed">
+                  Currently pursuing admission into the Master's program at <strong>Sam Houston State University</strong> to deepen my expertise in enterprise defense, threat analysis, and security architecture.
+                </p>
+              </div>
+            </div>
+          </BentoCard>
+        </div>
+        
       </div>
     </div>
   </PageWrapper>
