@@ -219,6 +219,8 @@ const Terminal = ({ isOpen, onClose }) => {
           children: {
             'localchat': { type: 'link', href: '/projects/localchat' },
             'rentals': { type: 'link', href: '/projects/rentals' },
+            'portfolio': { type: 'link', href: '/projects/portfolio' },
+            'mediaserver': { type: 'link', href: '/projects/media-server' },
             'homelab': { type: 'link', href: '/homelab' }
           }
         },
@@ -554,6 +556,13 @@ const ProjectsList = () => (
             <div className="flex justify-between items-center mb-6"><Badge type="accent">Sept 2025</Badge><FiServer className="text-3xl text-neutral-500"/></div>
             <p className="text-lg mb-6">Multi-segmented virtual network environment for malware detonation.</p>
             <div className="flex flex-wrap gap-2"><Badge>VMWare</Badge><Badge>Networking</Badge></div>
+          </BentoCard>
+        </Link>
+        <Link to="/projects/media-server" className="block h-full">
+          <BentoCard title="Secure Media Architecture" className="h-full hover:border-cyber-accent">
+           <div className="flex justify-between items-center mb-6"><Badge type="accent">Dec 2025</Badge><FiServer className="text-3xl text-neutral-500" /></div>
+           <p className="text-lg mb-6">Self-hosted media environment with Zero Trust Network Access and strict service isolation.</p>
+           <div className="flex flex-wrap gap-2"><Badge>Docker</Badge><Badge>Tailscale</Badge><Badge>ZTNA</Badge></div>
           </BentoCard>
         </Link>
       </div>
@@ -913,81 +922,6 @@ const ProjectPortfolio = () => (
   </ProjectLayout>
 );
 
-const ProjectMediaServer = () => (
-  <ProjectLayout title="Secure Media Architecture" date="December 2025">
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      
-      {/* --- OVERVIEW --- */}
-      <BentoCard title="Project Overview" className="md:col-span-2">
-        <p className="text-lg leading-relaxed text-neutral-300 mb-4">
-          Created and deployed a self-hosted media streaming environment. While the primary use case is media delivery via Jellyfin, the core objective was to build a 
-          <strong className="text-white"> secure, remote-accessible infrastructure</strong> without exposing local networks to the public internet.
-        </p>
-        <p className="text-neutral-400">
-          Built on a UGreen NAS with a 12TB storage array, the environment supports multiple concurrent users (family and friends) while adhering to strict security principles like service isolation and least-privilege access.
-        </p>
-      </BentoCard>
-
-      {/* --- ARCHITECTURE DIAGRAM --- */}
-      <div className="md:col-span-2 flex justify-center py-4">
-              </div>
-
-      {/* --- ZERO TRUST & NETWORKING --- */}
-      <BentoCard title="Zero Trust Network Access" className="h-full border-cyber-accent/20">
-         <div className="space-y-4">
-            <div className="bg-white/5 p-4 rounded-xl border-l-2 border-cyber-accent">
-                <h4 className="text-white font-bold flex items-center gap-2"><FiShield /> Tailscale (WireGuard)</h4>
-                <p className="text-sm text-neutral-400 mt-1">
-                    Eliminated the need for port forwarding. Implemented Tailscale to create a secure, encrypted peer-to-peer mesh network, ensuring data in transit is authenticated and accessible only to trusted nodes.
-                </p>
-            </div>
-         </div>
-      </BentoCard>
-
-      {/* --- IDENTITY MANAGEMENT --- */}
-      <BentoCard title="Identity & Access Management" className="h-full">
-         <div className="space-y-4 text-neutral-300">
-            <div className="flex items-start gap-3">
-                <FiLock className="mt-1 text-cyber-accent text-xl"/>
-                <div>
-                    <h4 className="font-bold text-white mb-1">Role-Based Access Control (RBAC)</h4>
-                    <p className="text-sm text-neutral-400">Configured Jellyfin with strict user policies. Friends and family are provisioned with least-privilege access (streaming rights only), preventing unauthorized administrative actions or media deletion.</p>
-                </div>
-            </div>
-         </div>
-      </BentoCard>
-
-      {/* --- CONTAINERIZATION --- */}
-      <BentoCard title="Containerization & Isolation" className="md:col-span-2">
-         <div className="grid md:grid-cols-2 gap-8">
-            <div>
-                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><FiLayers /> Docker Architecture</h3>
-                <p className="text-sm text-neutral-400 mb-4">
-                    The entire application stack (Jellyfin, Sonarr, Radarr, Lidarr) is containerized. This provides strict service isolation and limits the potential damage if a single application vulnerability were to be exploited.
-                </p>
-            </div>
-            <div>
-                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><FiDatabase /> Storage Management</h3>
-                <p className="text-sm text-neutral-400 mb-4">
-                    Managed volume mapping across the 12TB UGreen NAS array, ensuring containers only have read/write access to specific, required directories, further hardening the environment against directory traversal.
-                </p>
-            </div>
-         </div>
-      </BentoCard>
-
-      {/* --- TECH STACK --- */}
-      <BentoCard title="Core Technologies" className="md:col-span-2 bg-[#050505]">
-        <div className="flex flex-wrap gap-2">
-            {['UGreen NAS', 'Linux', 'Docker', 'Tailscale', 'WireGuard', 'Jellyfin', 'Sonarr', 'Radarr', 'Lidarr'].map(t => (
-                <Badge key={t} type="neutral">{t}</Badge>
-            ))}
-        </div>
-      </BentoCard>
-
-    </div>
-  </ProjectLayout>
-);
-
 const NotFound = () => (
   <div className="min-h-screen flex flex-col items-center justify-center text-center">
     <h1 className="text-9xl font-black text-white/10">404</h1>
@@ -1018,6 +952,7 @@ export default function App() {
             <Route path="/projects/rentals" element={<ProjectPrestige />} />
             <Route path="/projects/localchat" element={<ProjectLocalChat />} />
             <Route path="/projects/portfolio" element={<ProjectPortfolio />} />
+            <Route path="/projects/media-server" element={<ProjectMediaServer />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
