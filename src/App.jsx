@@ -1075,6 +1075,7 @@ export default function App() {
             <Route path="/projects/localchat" element={<ProjectLocalChat />} />
             <Route path="/projects/portfolio" element={<ProjectPortfolio />} />
             <Route path="/projects/media-server" element={<ProjectMediaServer />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
