@@ -51,7 +51,7 @@ const certsData = [
   },
   {
     id: 'sec+',
-    shortTitle: 'Sec +',
+    shortTitle: 'Security +',
     title: 'CompTIA Security+ (SY0-701)',
     issuer: 'CompTIA',
     date: 'July 28, 2026',
@@ -108,7 +108,7 @@ const Certifications = () => {
       ease: "none",
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top 60%", // Starts animating when the top of the container hits 60% of the viewport
+        start: "top 43%", // Starts animating when the top of the container hits 60% of the viewport
         end: "bottom 80%", // Ends when the bottom hits 80%
         scrub: 1, // Smooth scrubbing effect tying animation directly to scrollbar
       }
