@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation, Link, useNavigate 
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Certifications from './pages/certifications';
 import { 
   FiTerminal, FiX, FiShield, FiCpu, FiGlobe, FiDatabase, 
   FiServer, FiLayout, FiMessageSquare, FiMail, FiLinkedin, 
@@ -373,10 +374,9 @@ const Home = () => (
     <div className="pt-40 px-6 md:px-24 max-w-8xl mx-auto min-h-screen flex flex-col justify-center">
       <section className="flex flex-col md:flex-row items-center gap-16 mb-40">
         <div className="flex-1 space-y-8">
-          <h1 className="text-7xl md:text-9xl font-black tracking-tighter text-white leading-[0.9]">
-            <span className="animate-entry block">Secure.</span>
-            <span className="animate-entry block text-transparent bg-clip-text bg-gradient-to-r from-neutral-500 to-neutral-700">Analyze.</span>
-            <span className="animate-entry block">Defend.</span>
+          <h1 className="text-7xl md:text-7xl font-black tracking-tighter text-white leading-[1.0]">
+            <span className="animate-entry block">Building resilient systems</span>
+                        <span className="animate-entry block text-transparent bg-clip-text bg-gradient-to-r from-neutral-500 to-neutral-700 pb-2">from the ground up.</span>
           </h1>
           <p className="animate-entry text-xl md:text-2xl text-neutral-400 max-w-lg leading-relaxed">
             I am Daniel Castleberry. <span className="text-white">Cybersecurity Student</span> & a learning <span className="text-white">Full Stack Developer</span> building new skills for a career in security.
@@ -482,11 +482,11 @@ const About = () => (
       <SectionHeader title="About Me" subtitle="From Minecraft mods to Enterprise Defense." />
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
         <BentoCard className="md:col-span-8" title="The Origin Story">
-          <p className="text-lg leading-8 mb-6 text-neutral-300">My journey began in junior high, sparked by a friend developing Minecraft mods. I was fascinated by how code could fundamentally alter a system's physics.</p>
+          <p className="text-lg leading-8 mb-6 text-neutral-300">My journey began in junior high, sparked by a friend developing Minecraft mods. I was fascinated by how code could fundamentally alter a system's functionality.</p>
           <p className="text-lg leading-8 text-neutral-300">This curiosity evolved into vulnerability research. I learned to deconstruct code not to break it, but to understand it. Today, I channel that mindset into defensive security.</p>
         </BentoCard>
-        <BentoCard className="md:col-span-4 bg-cyber-accent/5 border-cyber-accent/20" title="The Mission">
-          <p className="text-xl font-medium text-cyber-accent leading-relaxed">"To help protect systems from malicious actors & to understand how these systems tick."</p>
+        <BentoCard className="md:col-span-4 bg-cyber-accent/5 border-cyber-accent/20" title="My Mission">
+          <p className="text-xl font-medium text-cyber-accent leading-relaxed">"To join blue hat teams in protecting systems from bad actors."</p>
         </BentoCard>
         <BentoCard className="md:col-span-4" title="Beyond the Keyboard">
           <ul className="space-y-4 mt-2">
@@ -1069,7 +1069,7 @@ export default function App() {
             <Route path="/skills" element={<Skills />} />
             <Route path="/experience" element={<ExperiencePage />} />
             <Route path="/homelab" element={<HomelabPage />} />
-            <Route path="/certifications" element={<CertificationsPage />} />
+            <Route path="/certifications" element={<Certifications />} />
             <Route path="/projects" element={<ProjectsList />} />
             <Route path="/projects/rentals" element={<ProjectPrestige />} />
             <Route path="/projects/localchat" element={<ProjectLocalChat />} />
