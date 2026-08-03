@@ -114,7 +114,7 @@ const Navbar = ({ toggleTerminal }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef(null);
   const menuRef = useRef(null);
-  const links = ['Home', 'About', 'Experience', 'Skills', 'certifications', 'Homelab', 'Projects'];
+  const links = ['Home', 'About', 'Experience', 'Skills', 'Certifications', 'Homelab', 'Projects'];
 
   useGSAP(() => {
     // Force start state to avoid glitches
