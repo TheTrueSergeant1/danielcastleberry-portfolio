@@ -33,6 +33,7 @@ const Navbar = ({ toggleTerminal }) => {
           <Link to="/" className="hover:text-white transition-colors">Home</Link>
           <Link to="/about" className="hover:text-white transition-colors">About</Link>
           <Link to="/experience" className="hover:text-white transition-colors">Experience</Link>
+          <Link to="/certifications" className="hover:text-white transition-colors">Certs</Link>
           <Link to="/projects" className="hover:text-white transition-colors">Projects</Link>
         </div>
 
