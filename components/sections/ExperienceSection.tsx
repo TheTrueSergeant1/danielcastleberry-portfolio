@@ -1,6 +1,6 @@
 // src/components/sections/ExperienceSection.tsx
 import GlassCard from '../ui/GlassCard';
-import { portfolioData } from '../data/portfolioData';
+import { portfolioData } from '../../data/portfolioData';
 
 export default function ExperienceSection() {
     return (

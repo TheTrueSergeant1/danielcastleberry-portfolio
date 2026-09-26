@@ -1,6 +1,6 @@
 // src/components/sections/ProjectsSection.tsx
 import GlassCard from '../ui/GlassCard';
-import { portfolioData } from '../data/portfolioData';
+import { portfolioData } from '../../data/portfolioData';
 import { Server, Code } from 'lucide-react';
 
 export default function ProjectsSection() {

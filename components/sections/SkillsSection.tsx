@@ -1,6 +1,6 @@
 // src/components/sections/SkillsSection.tsx
 import GlassCard from '../ui/GlassCard';
-import { portfolioData } from '../data/portfolioData';
+import { portfolioData } from '../../data/portfolioData';
 
 export default function SkillsSection() {
     return (

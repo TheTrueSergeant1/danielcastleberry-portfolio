@@ -1,16 +1,16 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { Mail, Download } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa6';
-import { portfolioData } from '../data/portfolioData';
+import { portfolioData } from '../../data/portfolioData';
 
-const container = {
+const container: Variants = {
     hidden: { opacity: 0 },
     show: { opacity: 1, transition: { staggerChildren: 0.15 } }
 };
 
-const item = {
+const item: Variants = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
 };
@@ -44,7 +44,7 @@ export default function HeroSection() {
                         { icon: <Mail size={20} />, href: contact.email },
                         { icon: <FaLinkedin size={20} />, href: contact.linkedin },
                         { icon: <FaGithub size={20} />, href: contact.github }
-                    ].map((link, i) => (
+                    ].map((link: { icon: React.ReactNode; href: string }, i: number) => (
                         <a key={i} href={link.href} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center bg-white/5 hover:bg-white/15 backdrop-blur-md border border-white/10 p-3 rounded-full transition-all hover:scale-105 active:scale-95">
                             {link.icon}
                         </a>
