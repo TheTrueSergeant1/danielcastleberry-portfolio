@@ -1,10 +1,28 @@
 // src/data/portfolioData.ts
 
+export interface Project {
+    title: string;
+    slug: string;
+    date: string;
+    description: string;
+    tech: string[];
+    githubUrl: string;
+    overview: string;
+    sections: {
+        category: string;
+        cards: {
+            title: string;
+            description: string;
+            bullets: string[];
+        }[];
+    }[];
+}
+
 export const portfolioData = {
     personal: {
-        name: "Daniel Castleberry", //
-        headline: "Cybersecurity Student", //
-        bio: "Pursuing a B.S. in Cybersecurity at Sam Houston State University with an anticipated graduation in Fall 2027. Currently focused on enterprise defense, threat analysis, and security architecture.", //
+        name: "Daniel Castleberry",
+        headline: "Cybersecurity Student",
+        bio: "Pursuing a B.S. in Cybersecurity at Sam Houston State University with an anticipated graduation in Fall 2027. Currently focused on enterprise defense, threat analysis, and security architecture.",
         contact: {
             email: "mailto:contact@yourdomain.com",
             linkedin: "https://linkedin.com/in/yourprofile",
@@ -14,55 +32,55 @@ export const portfolioData = {
     },
     experience: [
         {
-            role: "Cybersecurity Intern", //
-            company: "US Silica", //
-            location: "Katy, Texas", //
-            date: "Summer 2023", //
+            role: "Cybersecurity Intern",
+            company: "US Silica",
+            location: "Katy, Texas",
+            date: "Summer 2023",
             bullets: [
-                "Modernized phishing awareness training materials.", //
-                "Hands-on with InsightIDR, ServiceNow, and Mimecast.", //
-                "Shadowed Senior Security Engineer to handle support tickets and confidential operations.", //
-                "Researched emerging threats for team situational awareness." //
+                "Modernized phishing awareness training materials.",
+                "Hands-on with InsightIDR, ServiceNow, and Mimecast.",
+                "Shadowed Senior Security Engineer to handle support tickets and confidential operations.",
+                "Researched emerging threats for team situational awareness."
             ]
         },
         {
-            role: "Certified Trainer", //
-            company: "Chipotle", //
-            location: "The Woodlands, Texas", //
-            date: "2021 - Present", //
+            role: "Certified Trainer",
+            company: "Chipotle",
+            location: "The Woodlands, Texas",
+            date: "2021 - Present",
             bullets: [
-                "Managed customer service issues and resolved conflicts efficiently.", //
-                "Led end-of-shift closing procedures with smooth operational transitions.", //
-                "Trained and mentored new team members on efficiency and service standards." //
+                "Managed customer service issues and resolved conflicts efficiently.",
+                "Led end-of-shift closing procedures with smooth operational transitions.",
+                "Trained and mentored new team members on efficiency and service standards."
             ]
         }
     ],
     certifications: [
         {
-            name: "CompTIA Security+ (SY0-701)", //
-            date: "July 28, 2026", //
-            status: "Achieved", //
-            skills: ["Network Security", "Cryptography", "Risk Management"] //
+            name: "CompTIA Security+ (SY0-701)",
+            date: "July 28, 2026",
+            status: "Achieved",
+            skills: ["Network Security", "Cryptography", "Risk Management"]
         },
         {
-            name: "Cisco Certified Network Associate (CCNA)", //
-            date: "In Progress", //
-            status: "Studying", //
+            name: "Cisco Certified Network Associate (CCNA)",
+            date: "In Progress",
+            status: "Studying",
             skills: ["Routing", "Switching", "Network Fundamentals"]
         }
     ],
     skills: [
         {
-            category: "Security Tools", //
-            items: ["Wazuh SIEM", "InsightIDR", "ServiceNow", "Zscaler", "Mimecast", "Splunk", "Metasploit", "Wireshark", "Nmap"] //
+            category: "Security Tools",
+            items: ["Wazuh SIEM", "InsightIDR", "ServiceNow", "Zscaler", "Mimecast", "Splunk", "Metasploit", "Wireshark", "Nmap"]
         },
         {
-            category: "Development", //
-            items: ["Next.js", "React", "Supabase", "Tailwind CSS", "JavaScript", "Python", "Docker", "LaTeX"] //
+            category: "Development",
+            items: ["Next.js", "React", "Supabase", "Tailwind CSS", "JavaScript", "Python", "Docker", "LaTeX"]
         },
         {
-            category: "Infrastructure & OS", //
-            items: ["Linux (Kali/Ubuntu)", "Windows Server", "Active Directory", "Proxmox VE", "VMWare"] //
+            category: "Infrastructure & OS",
+            items: ["Linux (Kali/Ubuntu)", "Windows Server", "Active Directory", "Proxmox VE", "VMWare"]
         }
     ],
     homelab: {
@@ -331,5 +349,5 @@ export const portfolioData = {
                 }
             ]
         }
-    ]
+    ] as Project[]
 };
