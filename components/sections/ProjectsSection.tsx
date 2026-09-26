@@ -16,7 +16,7 @@ export default function ProjectsSection() {
                         {portfolioData.homelab.description}
                     </p>
                     <div className="flex flex-wrap gap-2">
-                        {portfolioData.homelab.tech.map((tech: string, i: number) => (
+                        {portfolioData.homelab.services.map((tech: string, i: number) => (
                             <span key={i} className="text-xs font-medium px-3 py-1 bg-teal-500/10 border border-teal-500/20 rounded-full text-teal-100">
                                 {tech}
                             </span>
@@ -26,7 +26,7 @@ export default function ProjectsSection() {
 
                 {/* Dynamic Projects Grid */}
                 <div className="space-y-6">
-                    {portfolioData.projects.map((project: { title: string; description: string; tech?: string[]; tags?: string[]; technologies?: string[] }, idx: number) => (
+                    {portfolioData.projects.map((project: { title: string; description: string; tech?: string[] }, idx: number) => (
                         <GlassCard key={idx} className="p-6 md:p-8 group hover:bg-white/[0.12] transition-colors duration-300">
                             <Code className="text-white/40 mb-3 group-hover:text-white transition-colors" size={24} />
                             <h4 className="text-xl font-medium text-white mb-2">{project.title}</h4>
@@ -34,7 +34,7 @@ export default function ProjectsSection() {
                                 {project.description}
                             </p>
                             <div className="flex flex-wrap gap-2">
-                                {(project.tech || project.tags || project.technologies || []).map((tech: string, i: number) => (
+                                {(project.tech || []).map((tech: string, i: number) => (
                                     <span key={i} className="text-[10px] uppercase tracking-wider bg-white/10 px-2 py-1 rounded text-white/60">
                                         {tech}
                                     </span>
