@@ -156,6 +156,115 @@ export const portfolioData = {
     },
     projects: [
         {
+            title: "SecOps & Homelab Browser Homepage",
+            slug: "secops-homepage",
+            date: "Sep 2026",
+            description: "Zero-dependency SecOps & homelab browser startpage built with Vanilla JS and the native WebCrypto API. Features threat-intel bangs, in-memory file hashing, AES-256-GCM scratchpad, CIDR/MAC calculators, and a Ctrl+K command palette.",
+            tech: ["Vanilla JS", "WebCrypto API", "HTML5", "CSS3"],
+            githubUrl: "https://github.com/TheTrueSergeant1/Firefox-SecOps-Homepage",
+            overview: "During incident triage, lab administration, and security assessments, analysts constantly switch tabs to perform routine data transformations—decoding Base64 payloads, defanging malicious URLs for incident tickets, inspecting JWT claims, converting Active Directory FileTime timestamps, hashing suspicious binaries, or calculating CIDR masks. Pasting sensitive client logs, internal tokens, or files into third-party online utilities introduces unnecessary OPSEC and data-leakage risks. The SecOps & Homelab Command Center solves this by embedding a complete, 100% client-side cryptographic, DFIR, and networking toolkit directly into a custom browser startpage. Engineered with zero external dependencies, no build step, and zero background network telemetry, it runs natively over the local file:// protocol.",
+            sections: [
+                {
+                    category: "Architecture & OPSEC Engineering",
+                    cards: [
+                        {
+                            title: "Data-Driven 4-File Architecture",
+                            description: "Designed to bypass strict browser file:// CORS restrictions without requiring a local web server or bundler:",
+                            bullets: [
+                                "Single Source of Truth (config.js): Centralizes all homelab node URLs, recon links, search bang definitions, and port references into a single configuration object.",
+                                "Dynamic UI Rendering (app.js): Reads config.js on load to dynamically construct the top navigation dropdowns, quick-bang pills, reference tables, and the Ctrl+K command palette index without HTML duplication.",
+                                "Zero-Bloat Separation: Isolates structural markup (index.html) and custom dark-mode CSS variables/animations (styles.css) for effortless maintenance."
+                            ]
+                        },
+                        {
+                            title: "OPSEC & Firefox Local Ergonomics",
+                            description: "Hardened for local browser execution with strict privacy guarantees:",
+                            bullets: [
+                                "Zero Background Telemetry: Makes zero outbound network requests or health pings on page load; external connections only occur when explicitly triggered by the user.",
+                                "100% In-Memory Processing: All file hashing, JWT inspection, regex log scraping, and encryption execute strictly inside the browser's local memory space.",
+                                "Firefox file:// Polish: Uses an inline SVG data-URI favicon for offline tab branding and includes one-click .txt file exports to protect local notes against browser cache purges."
+                            ]
+                        }
+                    ]
+                },
+                {
+                    category: "Omnibox Routing & Threat Intelligence",
+                    cards: [
+                        {
+                            title: "Smart Omnibox & 12 Threat-Intel Bangs",
+                            description: "The central search bar acts as a context-aware router with live visual indicator badges:",
+                            bullets: [
+                                "Intelligent Protocol Detection: Automatically routes RFC 1918 private LAN addresses (10.x.x.x, 192.168.x.x, localhost) over http:// for homelab access while routing public domains over https://.",
+                                "Threat-Intel Bang Triggers: Supports instant prefix routing for VirusTotal (!vt), Shodan (!shodan), URLScan (!urlscan), AbuseIPDB (!abuse), NIST NVD (!cve), GTFOBins (!gtfo), LOLBAS (!lol), crt.sh (!crt), GreyNoise (!grey), MalwareBazaar (!bazaar), ThreatFox (!fox), and CISA KEV (!cisa).",
+                                "Auto-Refanging on Search: Automatically strips defanged brackets (e.g., hxxps[://]evil[.]com) before dispatching queries to intelligence platforms."
+                            ]
+                        },
+                        {
+                            title: "IOC Pivot Engine & Bulk Log Scraper",
+                            description: "Streamlines indicator triage during SOC investigations and log review:",
+                            bullets: [
+                                "Multi-Engine IOC Pivot: Enter a target IP, domain, hash, or CVE once to launch parallel lookups across VirusTotal, Shodan, URLScan, AbuseIPDB, or NIST NVD.",
+                                "Regex Bulk IOC Extractor: Accepts raw firewall logs, email headers, or threat advisories and automatically extracts, categorizes, and deduplicates all IPv4 addresses, URLs, SHA-256/MD5 hashes, and CVE IDs."
+                            ]
+                        }
+                    ]
+                },
+                {
+                    category: "Client-Side Cryptography & Data Transforms",
+                    cards: [
+                        {
+                            title: "WebCrypto File Hasher & CSPRNG Generator",
+                            description: "Replaces insecure Math.random() and external hashing sites with native browser cryptography:",
+                            bullets: [
+                                "Live String & File Hashing: Uses crypto.subtle.digest to compute SHA-1, SHA-256, and SHA-512 hashes in real time as you type, or via a drag-and-drop local file zone using the FileReader ArrayBuffer API.",
+                                "One-Click VirusTotal Hash Check: Allows analysts to verify the SHA-256 digest of a local suspicious binary on VirusTotal without uploading the file itself.",
+                                "CSPRNG Credential Generator: Generates high-entropy passwords (12 to 64 characters) using cryptographically secure random values (crypto.getRandomValues over a Uint32Array)."
+                            ]
+                        },
+                        {
+                            title: "AES-256-GCM Encrypted Scratchpad",
+                            description: "Provides persistent local workspace storage with authenticated encryption:",
+                            bullets: [
+                                "PBKDF2 Key Derivation: Derives a 256-bit cryptographic key from a user passphrase using 100,000 iterations of SHA-256 and a random 16-byte salt.",
+                                "AES-256-GCM Locking: Encrypts workspace notes in-place using a random 12-byte Initialization Vector (IV), storing the combined salt, IV, and ciphertext as a Base64-encoded AESGCM blob in localStorage."
+                            ]
+                        },
+                        {
+                            title: "Codec, JWT, Timestamp & CVSS Parser",
+                            description: "A unified transformation utility for decoding payloads and normalizing forensic timelines:",
+                            bullets: [
+                                "UTF-8 Safe Codec & Defanger: Encodes and decodes Base64, Hexadecimal, and URL strings safely via TextEncoder/TextDecoder, alongside one-click IOC Defang and Refang actions.",
+                                "Local JWT Inspector: Splits JSON Web Tokens (header.payload.signature), pretty-prints decoded JSON claims locally, and evaluates iat/exp timestamps with an automatic [VALID] or [EXPIRED] status.",
+                                "Forensic Timestamp & CVSS Parsers: Converts two-way between Unix Epoch (s/ms), ISO-8601 UTC, and 18-digit Windows Active Directory FileTime (lastLogonTimestamp), and translates CVSS v3.1 vector strings into plain English."
+                            ]
+                        }
+                    ]
+                },
+                {
+                    category: "Networking, Offensive Tooling & Ergonomics",
+                    cards: [
+                        {
+                            title: "Bitwise IPv4 Subnet & MAC Calculator",
+                            description: "Instant network engineering calculations without leaving the browser:",
+                            bullets: [
+                                "Unsigned 32-Bit CIDR Math: Computes Network ID, Broadcast IP, Subnet Mask, Cisco Wildcard Mask (for ACLs/OSPF), usable host ranges, and host counts—accurately handling /31 PtP (RFC 3021) and /32 host routes.",
+                                "Multi-Vendor MAC Formatter: Normalizes any pasted MAC address and simultaneously outputs Cisco IOS (001a.2b3c.4d5e), Linux/IETF (00:1a:2b:3c:4d:5e), and Windows/IEEE (00-1A-2B-3C-4D-5E) notations."
+                            ]
+                        },
+                        {
+                            title: "One-Liner Builder & Tabbed Cheat Sheets",
+                            description: "Rapid command generation and keyboard-first reference lookup:",
+                            bullets: [
+                                "Transfer & Shell Builder: Dynamically populates LHOST and LPORT into copy-ready snippets for Python http.server, PowerShell IWR/IEX cradles, certutil, Bash /dev/tcp, Netcat mkfifo, and Python PTY stabilization.",
+                                "Tabbed SecOps Reference Tables: Filterable cheat sheets covering 25+ Network Ports, critical Windows Security & Sysmon Event IDs (4624, 4625, 4688, 4697, 4769, 1102, 4104, Sysmon 1/3/10/22), and Linux chmod/SUID permissions.",
+                                "Ctrl+K Command Palette: Full keyboard navigation (/ to search, Esc to close modals, and Ctrl+K with arrow-key selection) to launch any homelab node, recon site, or built-in tool without touching the mouse."
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             title: "Prestige Rentals DB",
             slug: "prestige-rentals-db",
             date: "Oct 2025",
