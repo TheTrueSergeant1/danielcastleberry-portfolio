@@ -341,6 +341,104 @@ export const portfolioData = {
             ]
         },
         {
+        title: "Aura — Pro Media Downloader & Archiver",
+        slug: "aura-media-downloader",
+        date: "Oct 2026",
+        description: "High-performance desktop media archiver and stream extractor built with Tauri, React, Framer Motion, and a local Python FastAPI sidecar engine. Features real-time WebSocket telemetry, multi-threaded 4K chunk extraction, and editor-ready post-processing.",
+        tech: ["Tauri", "React", "Tailwind CSS", "Framer Motion", "Python", "FastAPI", "yt-dlp", "WebSockets"],
+        githubUrl: "https://github.com/TheTrueSergeant1/aura",
+        overview: "Running a personal home media server requires maintaining a reliable offline library, but major platforms lack native download support. Meanwhile, public online downloaders are typically ad-ridden, privacy risks, or incapable of handling high-bitrate 4K streams and custom container muxing. Aura was engineered from the ground up to solve this—combining a native Apple-inspired desktop UI, real-time WebSocket telemetry, and a multi-threaded Python backend to archive streams directly into self-hosted storage with zero command-line friction.",
+        sections: [
+            {
+                category: "Architecture & Desktop Integration",
+                cards: [
+                    {
+                        title: "Hybrid Tauri & Python Sidecar Architecture",
+                        description: "Separates UI rendering from heavy media I/O across isolated, synchronized processes:",
+                        bullets: [
+                            "Frontend Shell: Built with React, Tailwind CSS v4, and Framer Motion, wrapped inside a native Tauri WebView2 window for lightweight, responsive execution.",
+                            "Python FastAPI Sidecar: A compiled backend server (`aura-engine.exe`) that handles heavy networking, stream parsing via `yt-dlp`, and media muxing.",
+                            "Zero Console Windows: Configured with silent background execution (`CREATE_NO_WINDOW` flags and stdout/stderr stubbing) so FFmpeg and Python processes never flash black command prompt windows during operation."
+                        ]
+                    },
+                    {
+                        title: "Zero-Dependency Packaging",
+                        description: "Engineered for seamless distribution as a standalone desktop application:",
+                        bullets: [
+                            "PyInstaller Binary Freezing: Packages the Python runtime, FastAPI server, and `yt-dlp` dependencies into a single isolated binary.",
+                            "Rust Lifecycle Management: Managed by Tauri's Rust core (`main.rs`), which automatically boots the sidecar engine on application startup and safely terminates processes upon window closure."
+                        ]
+                    }
+                ]
+            },
+            {
+                category: "High-Performance Parsing & Streaming Engine",
+                cards: [
+                    {
+                        title: "Universal Stream Sniffer & Quality Profiling",
+                        description: "Extracts media metadata and stream options across over 1,000 supported platforms:",
+                        bullets: [
+                            "Pre-Download Probing: Automatically inspects video titles, channels, durations, thumbnail previews, and available resolutions prior to committing jobs.",
+                            "Smart Quality Selection: Automatically targets the highest native framerates (60fps/120fps) and max bitrates without manual format hunting."
+                        ]
+                    },
+                    {
+                        title: "Multi-Threaded Chunking & Bandwidth Management",
+                        description: "Optimized for speed and network resource control:",
+                        bullets: [
+                            "8x Parallel Fragment Downloads: Splits HLS and DASH streams across concurrent byte-range chunks to fully saturate local bandwidth.",
+                            "Dynamic Speed Limiting: Optional rate-limiting sliders to prevent heavy 4K downloads from bottlenecking network performance during peak hours."
+                        ]
+                    }
+                ]
+            },
+            {
+                category: "Advanced Post-Processing & Codec Options",
+                cards: [
+                    {
+                        title: "Editor-Ready Muxing & Transcoding Presets",
+                        description: "Tailored export pipelines for different media consumption needs:",
+                        bullets: [
+                            "MP4 Video Muxing: Merges highest-quality video and audio streams up to 2160p60 HDR.",
+                            "Lossless Audio Extraction: Directly strips audio tracks into uncompressed FLAC format with embedded metadata tags and album art.",
+                            "Apple ProRes 422 Conversion: Transcodes downloaded footage into ProRes (`prores_ks`) using hardware acceleration for immediate timeline integration in Premiere Pro or DaVinci Resolve."
+                        ]
+                    },
+                    {
+                        title: "Automated Chapter Slicing & Metadata Tagging",
+                        description: "Keeps long-form content organized for media server libraries:",
+                        bullets: [
+                            "Chapter Splitting: Automatically detects embedded chapter markers and slices long podcasts, lectures, or videos into individual files.",
+                            "Metadata Embedding: Injects official tags, descriptions, and studio artwork directly into the container."
+                        ]
+                    }
+                ]
+            },
+            {
+                category: "Apple-Inspired UI & Real-Time Telemetry",
+                cards: [
+                    {
+                        title: "Spring Physics & Fluid Micro-Interactions",
+                        description: "Designed with a meticulous focus on tactile feedback and modern desktop aesthetics:",
+                        bullets: [
+                            "Spring-Damped Animations: Powered by Framer Motion using mathematical mass-spring-damping curves mimicking macOS SwiftUI behavior.",
+                            "Dynamic Island Status Pill: A compact, interactive status bar widget that collapses live downloads into a minimal pill with circular progress rings and speed telemetry.",
+                            "Tactile Web Audio Feedback: Synthesizes subtle, ear-comfortable UI audio cues for successful sniffing, task initiation, and queue completion."
+                        ]
+                    },
+                    {
+                        title: "Real-Time WebSocket Queue",
+                        description: "Provides granular visibility over active transfers:",
+                        bullets: [
+                            "Live Telemetry Stream: Pushes byte-level progress percentages, transfer speeds (MB/s), and estimated time remaining (ETA) over a local WebSocket connection.",
+                            "Drag-and-Drop Priority Grid: Fluid card queue supporting instant reordering and batch management of queued items."
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+        {
             title: "LocalChat Pro",
             slug: "local-chat-pro",
             date: "Nov 2025",
