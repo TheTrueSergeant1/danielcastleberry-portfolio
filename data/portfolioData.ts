@@ -341,12 +341,12 @@ export const portfolioData = {
             ]
         },
         {
-        title: "Aura — Pro Media Downloader & Archiver",
+        title: "Aura Media Downloader & Archiver",
         slug: "aura-media-downloader",
         date: "Oct 2026",
         description: "High-performance desktop media archiver and stream extractor built with Tauri, React, Framer Motion, and a local Python FastAPI sidecar engine. Features real-time WebSocket telemetry, multi-threaded 4K chunk extraction, and editor-ready post-processing.",
         tech: ["Tauri", "React", "Tailwind CSS", "Framer Motion", "Python", "FastAPI", "yt-dlp", "WebSockets"],
-        githubUrl: "https://github.com/TheTrueSergeant1/aura",
+        githubUrl: "https://github.com/TheTrueSergeant1/aura-downloader",
         overview: "Running a personal home media server requires maintaining a reliable offline library, but major platforms lack native download support. Meanwhile, public online downloaders are typically ad-ridden, privacy risks, or incapable of handling high-bitrate 4K streams and custom container muxing. Aura was engineered from the ground up to solve this—combining a native Apple-inspired desktop UI, real-time WebSocket telemetry, and a multi-threaded Python backend to archive streams directly into self-hosted storage with zero command-line friction.",
         sections: [
             {
